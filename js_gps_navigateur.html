@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>GPS Navigateur</h2>
+
+  <script type="text/javascript">
+
+    /*
+      Voir la doc MDN
+      https://developer.mozilla.org/fr/docs/Web/API/Geolocation_API
+     */
+    do_something = (latitude, longitude) => {
+      console.log(latitude);
+      console.log(longitude);
+      console.log(wpid);
+    }
+
+    function geo_success(position) {
+      do_something(position.coords.latitude, position.coords.longitude);
+    }
+
+    function geo_error() {
+      alert("Sorry, no position available.");
+    }
+
+    var geo_options = {
+      enableHighAccuracy: true,
+      maximumAge: 30000,
+      timeout: 27000
+    };
+
+    var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+ 
+  </script>
+
+</body>
+
+</html>
