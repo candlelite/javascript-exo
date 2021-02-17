@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Majuscule ou Minuscule</h2>
+
+  <script type="text/javascript">
+
+    /*
+      Différentes techniques pour savoir si une variable contient une majuscule
+      ou une minuscule (charCodeAt, toUpperCase, includes, match, test, etc.).
+
+      Exercice corrigé :
+
+      Écrire une fonction maj qui admet en paramètre une phrase et renvoie la
+        première lettre en majuscule ou « Pas de majuscule »
+
+      maj("bonjour toUt le Monde !")
+      "U"
+     */
+
+    maj = (chaine) => {
+      chaineIterable = [...chaine][Symbol.iterator]();
+      for (v of chaineIterable) {
+        //if (v.charCodeAt() >= 65 && v.charCodeAt() <= 90) {
+        //if (/[A-Z]/.test(v)) {
+        if (v.match(/[A-Z]/)) {
+          return v;
+        };
+      }
+    }
+
+    console.log(maj("bonjour toUt le Monde !!!"));
+
+
+
+    //Corrigé du prof 
+    // il suffit d'une seule ligne 
+    maj2 = (chaine) => (chaine.match(/[A-Z]/) || ["Pas de majuscules"])[0];
+    
+    console.log(maj2("bonjour tout le Monde !!!"));
+
+
+  </script>
+
+</body>
+
+</html>
