@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>A la ferme</h2>
+
+  <script type="text/javascript">
+
+    /*
+      Un exercice d'application de filter, map, reduce et d'utilisation d'objets
+
+      var ferme= ['l','l','c','c','c','c','m','c','c','p','c','v','v','c','p','v','v','m','v','l','c','p','l','v','m','c','m','c','m','p','m','m','l','v','l','p','m','v','v','c','p','m','c','v','m','p','p','p','c','v','c','m','p','l','l','l','p','v','p','c','c','v','p','m','c','c','c','m','p','l','p','p','c','c','v','p','c','m','l','p','m','v','l','p','l','c','c','c','v','m','p','l','p','v','c','p','l','m','m','v','p','v','p','m','m','m','c','v','p','c']
+     
+      Question numéro 1 : Nombre de moutons
+      Question numéro 2 : Nombre d'animeaux à 2 pattes (canards + poules)
+      Question numéro 3 : ecrire une fonction animal, qui renvoit le nb d'animaux dans la ferme en fonction du type d'animal
+      Question numéro 4 : ecrire une fonction animaux, qui renvoit le nb d'animaux dans la ferme en fonction des type d'animaux
+      Question numéro 5 : ecrire une fonction pattes, qui compte le nombre de pattes pour un type d'animal
+      Question numéro 6 : à partir de ferme, obtenier un objet qui contien le nombre de chaque type d'animal
+      Question numéro 7 : faire un chaine de caractère avec tous les animaux à la queue leu leu par ordre alphabétique
+      Question numéro 8 : comme question 7, mais avec les annimeaux à 2 pattes avant ceux à 4 pattes
+      question numéro 9 : comment à partir d'une liste : 
+                          var description = { m: 4, v: 4, c: 2, p: 2, l: 4 }
+                          obtenir un tableau :
+                          array ["m","v", "c", "p", "l"]
+      Question numéro 10: Choisir un animal au hasard dans le tableau 
+      Question numéro 11: créer une fonction farmCreate(10, description); pour créer la ferme
+      Question numéro 12: réécrire la fonction pattes2 en utilisant "description"
+
+Question au prof :
+[...Array(n)].map   ---> Est-ce que ça veut dire mapper un tableau qui n'existe pas encore ?
+
+Réponse du prof Schraf - Maths-info:
+Bjr. En fait Array(5) (ou Array.of(5)) tout seul donne [empty × 5] soit un tableau vide de taille 5 
+alors que [...Array(5)] donne [undefined, undefined, undefined, undefined, undefined] 
+contenant 5 éléments "undefined". C'est à ce tableau que l'on peut appliquer map. 
+Après, il y a d'autres façons de créer un tableau à 5 éléments, par exemple avec Array.from
+
+
+      */
+    var ferme = ['l', 'l', 'c', 'c', 'c', 'c', 'm', 'c', 'c', 'p', 'c', 'v', 'v', 'c', 'p', 'v', 'v', 'm', 'v', 'l', 'c', 'p', 'l', 'v', 'm', 'c', 'm', 'c', 'm', 'p', 'm', 'm', 'l', 'v', 'l', 'p', 'm', 'v', 'v', 'c', 'p', 'm', 'c', 'v', 'm', 'p', 'p', 'p', 'c', 'v', 'c', 'm', 'p', 'l', 'l', 'l', 'p', 'v', 'p', 'c', 'c', 'v', 'p', 'm', 'c', 'c', 'c', 'm', 'p', 'l', 'p', 'p', 'c', 'c', 'v', 'p', 'c', 'm', 'l', 'p', 'm', 'v', 'l', 'p', 'l', 'c', 'c', 'c', 'v', 'm', 'p', 'l', 'p', 'v', 'c', 'p', 'l', 'm', 'm', 'v', 'p', 'v', 'p', 'm', 'm', 'm', 'c', 'v', 'p', 'c']
+
+    //1
+    nombreDeMoutons = ferme.filter(a => a === 'm').length;
+    console.log("Nombre de moutons : " + nombreDeMoutons);
+
+    //2
+    nombreADeuxPattes = ferme.filter(a => a === 'c' || a === 'p').length;
+    console.log("Nombre deux pattes : " + nombreADeuxPattes);
+
+    //3
+    const animal = (f, t) => f.filter(a => a === t).length;
+    console.log(animal(ferme, 'm'));
+
+    //4
+    const animaux = (f, t) => f.filter(a => t.includes(a)).length;
+    console.log(animaux(ferme, 'mv'));
+
+    //5 première solution
+    const pattes = (t) => 2 * 'cp'.includes(t) + 4 * 'mvl'.includes(t);
+    console.log(pattes('v'));
+
+    //5 deuxième solution
+    const pattes2 = (t) => new Object({ m: 4, v: 4, c: 2, p: 2, l: 4 })[t];
+    console.log(pattes2('m'));
+
+    //6
+    const etable = {};
+    ferme.map((a) => etable[a] = (etable[a] || 0) + 1);
+    console.log(etable);
+
+    //6 corrigé du prof 
+    theEtable = ferme.reduce((theEtable, b) => {
+      theEtable[b] = (theEtable[b] || 0) + 1;
+      return theEtable;
+    }, {});
+    console.log(theEtable);
+
+    //6 en une seule  ligne 
+    theEtable2 = ferme.reduce((theEtable2, b) =>
+      (theEtable2[b] = (theEtable2[b] || 0) + 1, theEtable2), {});
+    console.log(theEtable2);
+
+    //7
+    queue = ferme.sort().join();
+    console.log(queue);
+
+    //8
+    queueP = ferme.filter(a => pattes2(a) === 2).join() + ferme.filter(a => pattes2(a) === 4).join();
+    console.log(queueP);
+
+    //8 corrigé du prof
+    queueP2 = ferme.sort((a, b) => pattes2(a) - pattes2(b)).join();
+    console.log(queueP2);
+
+
+    var description = { m: 4, v: 4, c: 2, p: 2, l: 4 };
+
+    //9
+    const t = [];
+    for (a in description) {
+      t.push(a);
+    }
+    console.log(t);
+
+    //9 corrigé du prof
+    var espece = (d) => Object.keys(d); //on fait une fonction "espece" qui renvoi les clés d'un objet
+    var e = espece(description); //e contiendra toutes les clés de description 
+    console.log(e);
+
+    //10
+    const RandomInt = nb => Math.floor(Math.random() * (Math.floor(Math.random() * Math.floor(nb + 1))));
+    var randomAnimal = e[RandomInt(e.length)];
+    console.log(randomAnimal);
+
+    //10 corrigé du prof
+    var randomAnimal2 = e[e.length * Math.random() | 0]; // pipe 0 est la même chose que Math.floor
+    console.log(randomAnimal2);
+
+    //11 farmCreate(10, description)
+    const farmCreate = (nb, description) => {
+      var f = [];
+      var e = espece(description);
+      console.log(e);
+      for (n = 0; n < nb; n++) {
+        f[n] = e[e.length * Math.random() | 0];
+      };
+      return f;
+    }
+    var laFerme = farmCreate(10, description);
+    console.log(laFerme);
+
+    //11 corrigé du prof
+    const farmCreate2 = (nb, description) => [...Array(n)].map(() => {
+      var e = espece(description);
+      return e[e.length * Math.random() | 0];
+    }
+    );
+    var laFerme2 = farmCreate2(10, description);
+    console.log(laFerme2);
+
+    //12
+    //    const pattes2 = (t) => new Object({ m: 4, v: 4, c: 2, p: 2, l: 4 })[t];
+    //        var description = { m: 4, v: 4, c: 2, p: 2, l: 4 };
+    const pattes3 = (t) => description[t];
+    console.log(pattes3('c'));
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>
