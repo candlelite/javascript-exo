@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Array.reduce()</h2>
+
+  <script type="text/javascript">
+
+    /*
+      Exercice 3 : A une soirée, des parents (le père ou la mère) amènent leurs enfants.
+      Par exemple le père « A » amène ses 4 enfants « a,a,a,a », la mère « B » amène 
+      ses 2 enfants « b,b » et « C » amène son enfant « c ».
+      Panne de courant ! Tout le monde court dans tous les sens !
+      A partir de la liste désordonnée des parents et des enfants, 
+      remettez-les par ordre alphabétique sous la forme : parent suivi des enfants.
+
+      ordre("abBaabcAC") devra renvoyer "AaaaBbbCc"
+    */
+      array1 = ["a","s","d"];
+      maChaine = "abBaabcAC";
+      console.log(maChaine[2]);
+      // il faudrait faire comme ci-dessous
+      // prendre les caractères un par un
+      // puis les ajouter à la chaine en fonction de l'ordre alpha
+      /*
+      a
+      ab
+      aBb
+      aaBb
+      aaaBb
+      aaaBbb
+      aaaBbbc
+      AaaaBbbc
+      AaaaBbbCc
+      */
+      // on pourrait faire un reduce puis un map dans le reduce
+      // ha ben non, au final j'ai utilisé, split, sort, et 
+      myArrayChaine = maChaine.split('');
+      console.log(myArrayChaine);
+
+      const car = myArrayChaine.find((el, index)=>{
+        return el==='C'
+      })
+      console.log(car);
+
+      const sortedArray = myArrayChaine.sort((c1, c2)=>{
+        console.log(c1 + " " + c2)
+        let nb = (c1.toLowerCase()).charCodeAt(0) + c1.charCodeAt(0)/1000 - (c2.toLowerCase()).charCodeAt(0) - c2.charCodeAt(0)/1000
+        console.log(nb);
+        return nb;
+      });
+      console.log(sortedArray);
+      
+      // tout mettre sur une seule ligne
+      const sortedArray2 = maChaine.split('').sort((c1, c2)=> (c1.toLowerCase()).charCodeAt(0) + c1.charCodeAt(0)/1000 - (c2.toLowerCase()).charCodeAt(0) - c2.charCodeAt(0)/1000);
+      console.log(sortedArray2);
+
+      // transformer en fonction 
+      const ordreA = arr => arr.split('').sort((c1, c2)=> (c1.toLowerCase()).charCodeAt(0) + c1.charCodeAt(0)/1000 - (c2.toLowerCase()).charCodeAt(0) - c2.charCodeAt(0)/1000);
+
+      const sortedArray3 = ordreA("abBaabcAC");
+      console.log(sortedArray3);
+
+      // la fonction avec des variables minimales comme le prof
+      // s.split('') = [...s]
+      var ordre = s => [...s].sort((a, b)=> (a.toLowerCase()).charCodeAt(0) + a.charCodeAt(0)/1000 - (b.toLowerCase()).charCodeAt(0) - b.charCodeAt(0)/1000).join('');
+
+      const sortedArray4 = ordre("abBaabcAC");
+      console.log(sortedArray4);
+
+
+
+      
+
+
+
+  </script>
+
+</body>
+
+</html>
