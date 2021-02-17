@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Différences entre deux listes</h2>
+
+  <script type="text/javascript">
+
+    /*
+      Trouvez les différences entre 2 listes de caractères. 
+      Il s’agit des caractères présents dans une liste et pas dans l’autre, 
+      et réciproquement. 
+      Renvoyez la liste de ces éléments par ordre alphabétique. Attention, 
+      les listes peuvent contenir plusieurs fois les mêmes caractères. 
+      Par exemple si :
+      a = ["a","b","z","d","e","d"]
+      b = ["a","b", "j","j"]
+      alors la différence sera
+      diff(a, b) = ["d","e","j","z"]
+    */
+
+    a = ["a", "b", "z", "d", "e", "d"];
+    b = ["a", "b", "j", "j"];
+
+    c = a.filter(v => (!b.includes(v)));
+    d = b.filter(v => (!a.includes(v)));
+    e = new Set(c.concat(d));
+    f = [...e].sort();
+
+    console.log(c);
+    console.log(d);
+    console.log(e);
+    console.log(f);
+
+    // Tout mettre sur une seule ligne
+
+    diff = (a,b) => [...new Set((a.filter(v => (!b.includes(v)))).concat(b.filter(v => (!a.includes(v)))))].sort();
+
+    console.log("diff(a, b) = " + diff(a,b));
+
+    // Corrigé du prof, avec une fonction supplémentaire
+
+    XmoinsY = (x,y) => x.filter(v => (!y.includes(v))); //fonction qui filtre les éléments d'une liste qui ne sont pas dans l'autre
+    diff2 = (a,b) => [...new Set((XmoinsY(a,b)).concat(XmoinsY(b,a)))].sort();
+    console.log("diff2(a, b) = " + diff2(a,b));
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>
