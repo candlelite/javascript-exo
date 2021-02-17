@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Array.reduce()</h2>
+
+  <script type="text/javascript">
+
+    /*
+      Exercice 2 : Écrire une fonction smaller(arr) qui donne le nombre 
+      de nombres à droite de arr[i] qui lui sont inférieurs. Exemples :
+
+      smaller([5, 4, 3, 2, 1]) === [4, 3, 2, 1, 0] 
+      smaller([1, 2, 0]) === [1, 1, 0]
+      */
+
+    myTab = [5, 4, 3, 2, 1];
+    // J'ai commencé par faire des test avec le tableau myTab
+    console.log(myTab);
+    // J'ai affiché les éléments et index avec un array.map()
+    myTab.map((el, index) => {
+      console.log("élément = " + el);
+      console.log("index = " + index);
+      console.log("----------------");
+      // donc, pour chaque élément el de myTab, 
+      // il faut faire un filter où el est plus grand que tous les autres éléments
+      // et où l'index de el2 est plus à droite que l'index de el 
+      // donc l'index de el2 plus grand que l'index de el
+      return myTab.filter((el2, index2) => {
+        return (el > el2 && index2 > index)
+      })
+    })
+    // ensuiste j'ai tout remis sur une seule ligne 
+
+    // puis transformé en fonction
+    var smaller = (arr) => arr.map((v, i) => (arr.filter((v2, i2) => (v > v2 && i2 > i)).length));
+
+    myTab2 = smaller([1, 2, 0]);
+
+    console.log(myTab2)
+
+
+    //corrigé du prof
+    var smaller2 = arr => arr.map((k, i) => arr.slice(i).reduce((a, v) => a + (v < k), 0))
+
+    myTab3 = smaller2([1, 2, 0]);
+
+    console.log(myTab3)
+
+  </script>
+
+</body>
+
+</html>
