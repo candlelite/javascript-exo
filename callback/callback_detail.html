@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Fonctions de rappel (Callback)</title>
+</head>
+
+<body>
+
+  <h2>Fonctions de rappel (Callback)</h2>
+
+  <script type="text/javascript">
+    document.write("<h1>Mon tutoriel en français</h1>");
+
+    const ListeDesMembresAssociatifs = {
+      membres : [],
+      quandNouveauMembre : null,
+
+      ajouterUnMembre : function(membre) {
+        this.membres.push(membre);
+        quandNouveauMembre(membre, this.membres);
+      },
+
+      init : function(fonctionRecuDeLExterieur){
+        quandNouveauMembre = fonctionRecuDeLExterieur;
+      }
+    }
+
+    ListeDesMembresAssociatifs.init(function(membre, membres){
+      console.log(membre);
+      console.log(membres);
+    })
+
+    ListeDesMembresAssociatifs.ajouterUnMembre("Thierry");
+    ListeDesMembresAssociatifs.ajouterUnMembre("Alain");
+    ListeDesMembresAssociatifs.ajouterUnMembre("Nadine");
+  </script>
+
+
+</body>
+
+</html>
