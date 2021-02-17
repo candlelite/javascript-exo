@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Le mot de plus court</h2>
+
+  <script type="text/javascript">
+
+    /*
+      Énoncé de l'exercice :
+
+      On vous donne une chaîne contenant des mots séparés par des espaces, 
+      renvoyez la longueur du ou des mots les plus courts. 
+
+      plusCourt("bitcoin take over the world maybe who knows perhaps")
+
+      va renvoyer 3, c'est bien la longueur des mots les plus courts de la phrase.
+     */
+
+    const plusCourt = p => p.split(" ").reduce((a, m) => {
+      m.length < a ? a = m.length : a = a;
+      return a;
+    }, p.length)
+
+    console.log(plusCourt("bitcoin take over the world maybe who knows perhaps"));
+
+    // Tout mettre sur une seule ligne
+    const plusCourt2 = p => p.split(" ").reduce((min, m) => Math.min(min, m.length), Infinity);
+
+    console.log(plusCourt2("bitcoin take over the world maybe who knows perhaps"));
+
+
+    //Corrigé 1 du prof :
+
+    const plusCourt3 = txt => Math.min(...txt.split(' ').map(m => m.length));
+
+    console.log(plusCourt3("bitcoin take over the world maybe who knows perhaps"));
+
+    //Corrigé 2 du prof :
+
+    const plusCourt4 = (txt) => txt
+      .split(' ')
+      .sort((a, b) => b.length - a.length)
+      .pop()
+      .length
+
+    console.log(plusCourt4("bitcoin take over the world maybe who knows perhaps"));
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>
