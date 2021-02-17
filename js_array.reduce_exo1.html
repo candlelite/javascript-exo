@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Array.reduce()</h2>
+
+  <script type="text/javascript">
+
+    /*
+      Exercice 1 : Des développeurs se sont inscrits pour assister à la prochaine réunion de codage que vous organisez.
+      Votre tâche consiste à renvoyer un objet qui comprend le nombre d'options alimentaires sélectionnées par les développeurs sur le formulaire d'inscription. Par exemple avec les inscrits :
+  
+      var inscrits = [
+        {prenom: 'Noah',nom: 'M.',pays: 'Suisse',continent: 'Europe',age: 19,langue: 'C',repas: 'végétarien'},
+        {prenom: 'Anna',nom: 'R.',pays: 'Liechtenstein',continent: 'Europe',age: 52,langue: 'JavaScript',repas: 'standard'},
+        {prenom: 'Ramona',nom: 'R.',pays: 'Paraguay',continent: 'Amériques',age: 29,langue: 'Ruby',repas: 'vegan'},
+        {prenom: 'George',nom: 'B.',pays: 'Angleterre',continent: 'Europe',age: 81,langue: 'C',repas: 'végétarien'}
+      ]
+  
+       On devra obtenir : {végétarien:2, standard:1, vegan:1}
+      */
+
+    var inscrits = [
+      { prenom: 'Noah', nom: 'M.', pays: 'Suisse', continent: 'Europe', age: 19, langue: 'C', repas: 'végétarien' },
+      { prenom: 'Anna', nom: 'R.', pays: 'Liechtenstein', continent: 'Europe', age: 52, langue: 'JavaScript', repas: 'standard' },
+      { prenom: 'Ramona', nom: 'R.', pays: 'Paraguay', continent: 'Amériques', age: 29, langue: 'Ruby', repas: 'vegan' },
+      { prenom: 'George', nom: 'B.', pays: 'Angleterre', continent: 'Europe', age: 81, langue: 'C', repas: 'végétarien' }
+    ]
+    // Je vois que "inscrits" est un tableau d'objets sans référence (sans nom)
+    console.log(inscrits);
+    // le tableau "inscrits" est itérable
+    for (const inscrit of inscrits) {
+      console.log('repas : ' + inscrit.repas);
+    }
+
+    inscritIterator = inscrits[Symbol.iterator]();
+    console.log(inscritIterator.next().value.repas);
+    console.log(inscritIterator.next().value.repas);
+    console.log(inscritIterator.next().value.repas);
+    console.log(inscritIterator.next().value.repas);
+
+    // il faut passer à la méthode "reduce" : une callback et un initialisateur de 1ère valeur
+    // la callback prend 2 arguments : "accumulateur a" et "currentValue v"
+    // dans le cas d'un tableau d'objet on écrit :
+    // tableau.reduce((a, v)=>{}, {});
+    const commande = inscrits.reduce((a, v) => {
+      a[v.repas] = (a[v.repas] || 0) + 1;
+      return a;
+    }, {});
+    console.log(commande);
+
+    // Le code ci-dessus peut être réduit en une seule ligne
+    const commande2 = inscrits.reduce((a, v) => (a[v.repas] = (a[v.repas] || 0) + 1, a), {});
+    console.log(commande2);
+
+  </script>
+
+</body>
+
+</html>
