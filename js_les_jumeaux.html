@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Les jumeaux</h2>
+
+  <script type="text/javascript">
+
+    /*
+      Exercice :
+      Agent 47, vous avez une nouvelle tâche ! Parmi les citoyens de la ville 
+      sont cachés 2 jumeaux très dangereux. Votre tâche est de les identifier
+      et de les éliminer !
+      A partir d'un ensemble d'entiers, trouvez les deux mêmes nombres et
+        renvoyez l'un d'entre eux, par exemple dans 2, 3, 6, 34, 7, 8, 2 
+        la réponse est 2.
+      S'il n'y a pas de jumeaux dans la ville - renvoyez null.
+    */
+
+    arr = [2, 3,6, 34, 7,8];
+
+    jumeaux = arr.filter((v, i) => (arr.slice(i+1).includes(v)));
+
+    console.log(jumeaux);
+
+  </script>
+
+</body>
+
+</html>
