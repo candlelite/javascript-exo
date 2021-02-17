@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Générateur de textes aléatoires</h2>
+
+  <script type="text/javascript">
+
+    /*
+     
+      */
+
+    let originalText = "\
+Par ce temps si bénin, après tant de froidure, \
+Dans les grands terrains gris, sur les coteaux chenus, \
+On a l’impression parmi ces arbres nus \
+D’un très beau jour d’été sans fleurs et sans verdure. \
+\
+Les pieds ne glissent plus sur la terre moins dure \
+Où les feux du soleil, presque tous revenus, \
+Allument cailloux, rocs, sable et gazons menus. \
+Dans l’atmosphère souffle un vent tiède qui dure. \
+\
+Et çà et là – près d’un marais, \
+D’un taillis, d’un pacage, auprès \
+D’un ruisseau bordé de vieux aunes, \
+\
+Le printemps s’annonce à vos yeux \
+Avec le vol silencieux \
+De beaux petits papillons jaunes. \
+\
+";
+    let chaineDeDepart = "CAI";
+    let longueurPattern = chaineDeDepart.length;
+    let patternEnCours = chaineDeDepart;
+    let chaineDeFin = chaineDeDepart;
+
+    console.log(originalText);
+    let cleanedText = originalText.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '').toUpperCase();
+    console.log(cleanedText);
+
+
+    for (nbTour = 0; nbTour < 100; nbTour++) {
+      let matches = cleanedText.matchAll(patternEnCours);
+
+      prochainCaracteres = [];
+      var i = 0;
+      for (const match of matches) {
+        let x = 0;
+        console.log(match.index);
+        x = match.index;
+        console.log("x = " + x);
+
+        prochainCaracteres[i++] = cleanedText.charAt(x + longueurPattern);
+        console.log(prochainCaracteres[i - 1]);
+
+      }
+      prochainCaractere = prochainCaracteres[Math.floor(Math.random() * (Math.floor(Math.random() * Math.floor(i + 1))))];
+      console.log("i : " + i);
+
+      console.log(prochainCaractere);
+      patternEnCours = patternEnCours.slice(1) + prochainCaractere;
+      console.log(patternEnCours);
+      chaineDeFin = chaineDeFin + prochainCaractere;
+      console.log(chaineDeFin);
+    }
+
+
+  </script>
+
+</body>
+
+</html>

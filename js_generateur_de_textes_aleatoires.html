@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Générateur de textes aléatoires</h2>
+
+  <script type="text/javascript">
+
+    /*
+Pour tester, il vous suffit de :
+
+- Lancer Firefox (version 47 ou plus)
+- Taper sur la touche F12 pour voir la console
+- A droite l'engrenage pour afficher également l'ardoise
+
+
+  Activer le collage sur les sites qui le bloquent - Firefox
+    Dans la barre d'adresses de Firefox, saisissez la commande "about:config" et validez par la touche Entrée.
+    Cliquez sur Je ferai attention, promis !.
+    Saisissez "dom.event.cl" dans le champ Rechercher.
+    Double cliquez sur l'option "dom.event.clipboardevents.enabled" pour le mettre à "false". 
+    Fermez l'onglet.  
+      */
+
+    let originalText = "\
+Par ce temps si bénin, après tant de froidure, \
+Dans les grands terrains gris, sur les coteaux chenus, \
+On a l’impression parmi ces arbres nus \
+D’un très beau jour d’été sans fleurs et sans verdure. \
+\
+Les pieds ne glissent plus sur la terre moins dure \
+Où les feux du soleil, presque tous revenus, \
+Allument cailloux, rocs, sable et gazons menus. \
+Dans l’atmosphère souffle un vent tiède qui dure. \
+\
+Et çà et là – près d’un marais, \
+D’un taillis, d’un pacage, auprès \
+D’un ruisseau bordé de vieux aunes, \
+\
+Le printemps s’annonce à vos yeux \
+Avec le vol silencieux \
+De beaux petits papillons jaunes. \
+\
+";
+    // let poeme = originalText.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '').toUpperCase();
+
+    /*
+      Schraf : Maths-info
+      Ca me semble très bien. Pour enlever tout ce qui n'est pas alphabétique, 
+      en gardant malgré tout les accents, on peut utiliser
+      .replace(/<br>/gi, " ").replace(/[^A-ZÀ-Ü ']/g, "")
+      J'ai vu ça ici : 
+      https://stackoverflow.com/questions/24676691/whats-a-good-regex-to-include-accented-characters-in-a-simple-way 
+    */
+
+    const RandomInt = nb => Math.floor(Math.random() * (Math.floor(Math.random() * Math.floor(nb + 1))));
+
+    const generateur = (n, taille = 200) => {
+      var poeme = document.getElementsByClassName('poem__content')[0].innerHTML.toUpperCase().replace(/<br>/gi, " ").replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+      let pos = RandomInt(poeme.length);
+      let pattern = poeme.slice(-pos, -pos + n);
+
+      let final = pattern;
+
+      for (nbTour = 0; nbTour <= taille; nbTour++) {
+
+        prochainCaracteresPossible = [];
+        var i = 0;
+        for (const match of poeme.matchAll(pattern)) prochainCaracteresPossible[i++] = poeme.charAt(match.index + n);
+
+        prochainCaractereChoisi = prochainCaracteresPossible[RandomInt(i)];
+
+        pattern = pattern.slice(1) + prochainCaractereChoisi;
+        final = final + prochainCaractereChoisi;
+
+      }
+      return final;
+    }
+
+    console.log(generateur(4));
+
+  </script>
+
+</body>
+
+</html>
