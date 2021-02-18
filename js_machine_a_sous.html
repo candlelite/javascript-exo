@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Machine à sous</title>
+</head>
+
+<body>
+  <h1>Machine à sous</h1>
+  <button onclick="jouer()">JOUER</button>
+  <br><br>
+  <div id="sortie"></div>
+  <script>
+    /*
+      Une machine à sous comporte 3 rouleaux. 
+      Les symboles sont les 4 suivants : R, D, V et 7 (Roi, Dame, Valet et 7)
+
+      On gagne 10€ si 2 symboles identiques apparaissent
+      On gagne 50€ si les 3 symboles sont identiques (R, D ou V)
+      On gagne 100€ si les 3 symboles sont des 7
+      Sinon on ne gagne rien (0€)
+
+      Écrire la fonction "gain" qui permet de trouver le gain d'un jeu :
+
+      gain("RRR") = "50€"
+      gain("RDV") = "0€"
+      gain("777") = "100€"
+      gain("DVV") = "10€"
+    */
+
+    var element = document.querySelector('#sortie');
+
+    const gain = (jeu) => {
+      var s = 0;
+      r = jeu.split('');
+      const j = r.map((el, index) => (s = (r.slice(index + 1)).includes(el) ? s==10 ? el=='7' ? s += 90 : s +=40 : s += 10 : s));     
+      return j.pop()+"€";
+    }
+
+    const jouer = () => {
+      const carte = ['R', 'D', 'V', '7'];
+      let rouleaux = carte[carte.length * Math.random() | 0] + carte[carte.length * Math.random() | 0] + carte[carte.length * Math.random() | 0];
+      element.innerHTML += rouleaux;
+      element.innerHTML += " Gain : " + gain(rouleaux) + "<br>";
+    }
+
+    /*
+    Solutions du prof pour compter un symbol :
+
+    var cpte = (symbol, chaine) => chaine.split(symbol).length - 1
+
+    ou 
+
+    var cpte = (symbol, chaine) => [...chaine].filter(l => l == symbol).length
+    
+    */
+
+  </script>
+</body>
+
+</html>
