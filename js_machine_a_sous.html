@@ -33,6 +33,7 @@
 
     var element = document.querySelector('#sortie');
 
+    // ma version
     const gain = (jeu) => {
       var s = 0;
       r = jeu.split('');
@@ -40,11 +41,24 @@
       return j.pop()+"€";
     }
 
+    // corrigé du prof en 1 ligne et avec un "Set" !!!!!
+    const gain2 = jeu => [50,10,0][new Set(jeu).size-1] + 50 * (jeu == 777) + "€" 
+    /* explication :
+        [50,10,0] c'est un tableau
+        on choisi l'indice du tableau [new Set(jeu).size-1]
+          si jeu est R7D, la size du Set est 3
+          si jeu est RR7, la size du Set est 2 (R et 7) car il peut pas y avoir de element identique dans un Set
+          si jeu est RRR, la size du Set est 1
+          si jeu est 777, la size du Set est 1 
+          on prend [50,10,0][taille du Set - 1] et on ajout 50 si 777
+        et on additionne 50 si jeu == 777 sion on additionne rien
+    */
+
     const jouer = () => {
       const carte = ['R', 'D', 'V', '7'];
       let rouleaux = carte[carte.length * Math.random() | 0] + carte[carte.length * Math.random() | 0] + carte[carte.length * Math.random() | 0];
       element.innerHTML += rouleaux;
-      element.innerHTML += " Gain : " + gain(rouleaux) + "<br>";
+      element.innerHTML += " Gain : " + gain2(rouleaux) + "<br>";
     }
 
     /*
