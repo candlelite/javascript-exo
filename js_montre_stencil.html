@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Montre Stencil</title>
+</head>
+
+<body>
+  <svg version="1.1" viewBox="0 0 800 1200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#000" fill-rule="evenodd">
+      <rect x="390" width="20" height="1200" />
+      <rect y="590" width="130" height="10" />
+      <rect y="590" width="800" height="20" />
+      <g id="g0">
+        <rect x="190" y="10" width="20" height="170" />
+        <rect x="10" y="190" width="170" height="20" />
+        <rect x="190" y="190" width="20" height="20" />
+        <rect x="220" y="190" width="160" height="20" />
+        <rect x="190" y="220" width="20" height="160" />
+        <rect x="10" y="390" width="170" height="20" />
+        <rect x="190" y="390" width="20" height="20" />
+        <rect x="220" y="390" width="160" height="20" />
+        <rect x="190" y="420" width="20" height="160" />
+      </g>
+      <g id="g1" transform="translate(410)">
+        <rect x="190" y="10" width="20" height="170" />
+        <rect x="10" y="190" width="170" height="20" />
+        <rect x="190" y="190" width="20" height="20" />
+        <rect x="220" y="190" width="160" height="20" />
+        <rect x="190" y="220" width="20" height="160" />
+        <rect x="10" y="390" width="170" height="20" />
+        <rect x="190" y="390" width="20" height="20" />
+        <rect x="220" y="390" width="160" height="20" />
+        <rect x="190" y="420" width="20" height="160" />
+      </g>
+      <g id="g2" transform="translate(4.7588e-6 610)">
+        <rect x="190" y="10" width="20" height="170" />
+        <rect x="10" y="190" width="170" height="20" />
+        <rect x="190" y="190" width="20" height="20" />
+        <rect x="220" y="190" width="160" height="20" />
+        <rect x="190" y="220" width="20" height="160" />
+        <rect x="10" y="390" width="170" height="20" />
+        <rect x="190" y="390" width="20" height="20" />
+        <rect x="220" y="390" width="160" height="20" />
+        <rect x="190" y="420" width="20" height="160" />
+      </g>
+      <g id="g3" transform="translate(410 610)">
+        <rect x="190" y="10" width="20" height="170" />
+        <rect x="10" y="190" width="170" height="20" />
+        <rect x="190" y="190" width="20" height="20" />
+        <rect x="220" y="190" width="160" height="20" />
+        <rect x="190" y="220" width="20" height="160" />
+        <rect x="10" y="390" width="170" height="20" />
+        <rect x="190" y="390" width="20" height="20" />
+        <rect x="220" y="390" width="160" height="20" />
+        <rect x="190" y="420" width="20" height="160" />
+      </g>
+      <g id="g4" transform="matrix(.25884 0 0 .26178 457.41 1035)">
+        <rect x="190" y="10" width="20" height="170" />
+        <rect x="10" y="190" width="170" height="20" />
+        <rect x="190" y="190" width="20" height="20" />
+        <rect x="220" y="190" width="160" height="20" />
+        <rect x="190" y="220" width="20" height="160" />
+        <rect x="10" y="390" width="170" height="20" />
+        <rect x="190" y="390" width="20" height="20" />
+        <rect x="220" y="390" width="160" height="20" />
+        <rect x="190" y="420" width="20" height="160" />
+      </g>
+      <g id="g5" transform="matrix(.25884 0 0 .26178 657.41 1035)">
+        <rect x="190" y="10" width="20" height="170" />
+        <rect x="10" y="190" width="170" height="20" />
+        <rect x="190" y="190" width="20" height="20" />
+        <rect x="220" y="190" width="160" height="20" />
+        <rect x="190" y="220" width="20" height="160" />
+        <rect x="10" y="390" width="170" height="20" />
+        <rect x="190" y="390" width="20" height="20" />
+        <rect x="220" y="390" width="160" height="20" />
+        <rect x="190" y="420" width="20" height="160" />
+      </g>
+    </g>
+  </svg>
+
+  <script>
+    /*
+      Création du SVG (Scalable Vector Graphics° avec le logiciel "Incskape" qui est gratuit : 
+        - Il faut commencer par aller dans les propriétés du document, pour définir 
+        l'unité par défaut en pixels, la largeur à 800 et la hauteur à 1200 PIXELS,
+        définir l'échelle à 1. Puis créer une grille avec ecartement de 10 PIXELS.
+        - Afficher l'éditeur XML "Edition", "Editeur XML"
+        - Dessiner un premier groupe, Selectionner le groupe, et faire "objet", "groupper" 
+        et renomer le groupe en "g0"
+        - Duppliquer le groupe, et le renomer en "g1" et le déplacer
+        - Duppliquer le groupe, et le renomer en "g2" et le déplacer
+        - etc...
+        - Enregistrer sous, choisir le format "SVG optimisé" et cliquer sur "enregistrer"
+        et dans la fenetre qui s'ouvre aller dans l'onglet "ID" et "préserver les ID qui commence par "g"
+        dans l'onglet "Sortie SVG" cocher toutes les cases
+        - Récupérer ce qu'il y a dans le fichier svg pour le mettre dans de <body> 
+
+        pour 19h25m46s
+        heure = [1,9,5,2,4,6] 
+        leds = [[4],[0,2,4,6,8],[1,7],[1,5],[0,5,6,8],[3,5],[3,6],[1,2,4,6,8],[2,6],[2,5]]
+        [...svg.querySelectorAll('#g'+'0'+'>rect')] = rect, rect, rect, rect, rect, tect
+
+    */
+    var svg = document.querySelector("svg");
+    svg.style.width = window.innerWidth + "px";
+    svg.style.height = window.innerHeight + "px";
+    const leds = [[4], [0, 2, 4, 6, 8], [1, 7], [1, 5], [0, 5, 6, 8], [3, 5], [3, 6], [1, 2, 4, 6, 8], [2, 6], [2, 5]];
+
+    setInterval(function () {
+      const heure = new Date().toLocaleTimeString().replace(/:/g, '').split('');
+      heure.forEach((h, index) => {
+        const rect = [...svg.querySelectorAll('#g' + index + '>rect')];
+        rect.forEach((led, num) => {
+          leds[h].includes(num) ? led.style.opacity = 1 : led.style.opacity = 0,04;
+        });
+      });
+    }, 1000);
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+
+</body>
+
+</html>
