@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Montre TokioFlash</title>
+</head>
+
+<body>
+  <canvas id="montre"></canvas>
+  <script>
+    /*
+      0   1   2   3   4   5
+      6   7   8   9   10  11
+      12  13  14  15  16  17
+      18  19  20  21  22  23
+      24  25  26  27  28  29
+
+      hauteur = (cellule/6)|0
+      largeur = (cellule%6)|0
+
+      cellules = [24,25,18,19,12,13,6,7,0,1, 26,27,20,21,14,15,8,9,2,3, 28,29,22,23,16,17,10,11,4,5]
+      couleurs = [1 ,2 , 3, 3, 3, 0,0,0,0,0,  1, 1, 1, 0, 0, 0,0,0,0,0,  1, 1, 1, 2, 3, 3,3,0]
+      23h 45m 53s
+
+      couleurs numéro 0 = 0
+                      1 = 15
+                      2 = 5
+                      3 = 1
+
+      pour les heures : 
+      23h = 15 + 5 + 1 + 1 + 1
+      23/15 | 0 = 1 (Couleur1 une fois)
+      23%15 = 8/5|0 = 1 (Couleur2 une fois)
+      8%5 = 3 (couleur3 trois fois)
+      (Couleur0 pour aller jusqu'à dix)
+
+      pour les minutes et les secondes : 
+      45m = 15 + 15 + 15
+      45/15|0 = 3 (Couleur1 trois fois)
+      45%15 = 0/5|0 = 0 (couleur2 zero fois)
+      0%5 = 0 (couleur3 zeri fois)
+      (Couleur0 pour aller jusqu'à dix)
+
+      53s = 15 + 15 + 15 + 5 + 1 + 1 + 1
+      53/15|0 = 3 (Couleur1 trois fois)
+      53%15 = 8/5|0 = 1 (Couleur2 une fois)
+      8%5 = 3 (Couleur3 trois fois)
+      (Couleur0 pour aller jusqu'à dix)
+
+      c1 = (v/15)|0 
+      c2 = ((v%15)/5)|0
+      c3 = ((v%15)%5)|0
+    */
+    var canvas = document.getElementById("montre");
+    var ctx = canvas.getContext('2d');
+    var largeur = window.innerWidth / 6 | 0;
+    var hauteur = window.innerHeight / 5 | 0;
+    canvas.width = 6 * largeur;
+    canvas.height = 5 * hauteur;
+    const codesCouleurs = ['#000000', '#DF0101', '#F7FE2E', '#01DF01'];
+
+    setInterval(function () {
+      var couleurs = new Date().toLocaleTimeString()
+        .split(':')
+        .map((v, index) =>
+          ("1".repeat((v / 15) | 0) + "2".repeat(((v % 15) / 5) | 0) + "3".repeat(((v % 15) % 5) | 0) + "0".repeat(10)).slice(0, 10))
+        .join('');
+
+      [24, 25, 18, 19, 12, 13, 6, 7, 0, 1, 26, 27, 20, 21, 14, 15, 8, 9, 2, 3, 28, 29, 22, 23, 16, 17, 10, 11, 4, 5]
+      .forEach((el, index) => {
+        ctx.fillStyle = codesCouleurs[couleurs[index]];
+        ctx.fillRect((largeur * (((el % 6) | 0)) - 2), ((hauteur * ((el / 6) | 0))) - 2, largeur - 2, hauteur - 2);
+      })
+    }, 1000);
+
+  </script>
+  <style type="text/css">
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</body>
+
+</html>
