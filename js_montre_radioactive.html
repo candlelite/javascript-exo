@@ -311,7 +311,19 @@
       identifiant "heures, minutes, autre"
       - récuper le code de la balise sgv dans le fichier et le coler dans notre <body>
 
+
+        On peut aussi mettre l'image SVG dans un fichier à part.
+        Dans ce cas, il faudra ajouter la balise : 
+
+        <object data="montre.svg" type="image/svg+xml"></object>
+
+        et remplacer :
+        [...svg.querySelectorAll('#heures>path')]
+
+        par :
+        [...document.querySelector('object').contentDocument.querySelectorAll('#heures>path')]
     */
+   
     var svg = document.querySelector("svg");
     svg.style.width = window.innerWidth + "px";
     svg.style.height = window.innerHeight + "px";
