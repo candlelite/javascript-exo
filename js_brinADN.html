@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Un brin d'ADN</title>
+</head>
+
+<body>
+  <h1>Un brin d'ADN</h1>
+  <button onclick="tester()">Tester ADN brun1 puis brin2</button>
+  <br><br>
+  <div id="sortie"></div>
+  <script>
+    /*
+      Un brin d'ADN sera une chaine composé uniquement des lettres A,T,C,G
+      comme par exemple "TAACCGTAAGGGCGGC"
+      Ecrire une fonction adn() qui vérifie si la chaine est ou non un brin d'ADN
+      Puis afficher le temps de traitement 
+    */
+    var element = document.querySelector('#sortie');
+
+    var n = 500000;
+    var brin1 = "A".repeat(n) + "X" + "CTG".repeat(n);
+    var brin2 = "ACTG".repeat(n);
+
+    const tester = () => {
+      element.innerHTML += "Coucou";
+      var t = new Date().getTime();
+      console.log(adn(brin1), adn(brin2), new Date().getTime() - t);
+    }
+
+    // VERSION FOR OF = 76ms
+    const adnA = (brin) => {
+      for (el of brin)
+        //if (!["A", "T", "C", "G"].includes(el))
+        if (el != 'A' && el != 'T' && el != 'C' && el != 'G') // plus rapide que le includes
+          return '- Non, pas de brin d\'ADN.';
+      return '- OUI, c\'est de l\'ADN.';
+    };
+
+    // VERSION AVEC FILTER = 59ms
+    const adnB = (brin) =>
+      //(brin.split('').filter(el => el != 'A' && el != 'T' && el != 'C' && el != 'G')).length == 0 ? "yes" : "no";
+      ([...brin].filter(el => !["A", "T", "C", "G"].includes(el).length == 0)) ? "yes" : "no";
+    //>>>>>>>>> [...brin] est plus lent que brin.split('') !!!!!!!!!!
+
+    // VERSION AVEC SPLIT ET JOIN = 288ms
+    const adnC = (brin) =>
+      brin.split('A').join('')
+        .split('T').join('')
+        .split('C').join('')
+        .split('G').join('') == "" ? "Yes" : "No";
+
+    // VERSION AVEC SPLIT ET JOIN et regExp = 188ms
+    const adnD = (brin) =>
+      brin.split(/[ATCG]/).join('') == "" ? "Yes" : "No";
+    //>>>>>>>>> Chez moi, contrairement à la vidéo, la version avec regExp est plus rapide !!!!!!!!!!
+
+    // VERSION AVEC REPLACE = 160ms
+    // replacer TOUS (/g) les A, T, C ou G par rien
+    const adnE = (brin) =>
+      brin.replace(/[ATCG]/g, "") == "" ? "yes" : "No";
+
+    // VERSION AVEC REPLACE TRES AMELIORE = 6ms
+    // Remplacer UNIQUEMENT le PREMIER élément qui n'est pas ACTG par rien
+    const adnF = (brin) =>
+      brin.replace(/[^ATCG]/, "") == brin ? "yes" : "No";
+
+    // VERSION AVEC EVERY = 70ms avec [...brien]
+    //                      50ms avec brin.split()
+    const adnG = (brin) =>
+      brin.split('').every((brin) => "ACTG".includes(brin)) ? "Yes" : "No";
+
+    // VERSION AVEC SOME = 70ms
+    const adnH = (brin) =>
+      brin.split('').some((brin) => !"ACTG".includes(brin)) ? "No" : "Yes";
+
+    // VERSION AVEC FINDINDEX = 100ms
+    const adnI = (brin) =>
+      brin.split('').findIndex((brin) => /[^ACTG]/.test(brin)) == -1 ? "Yes" : "No";
+
+    // VERSION AVEC SET = 120ms
+    const adnJ = (brin) =>
+      new Set("ACTG" + brin).size == 4 ? "Yes" : "No";
+
+    // VERSION AVEC SEARCH = 6ms
+    const adnK = (brin) =>
+      brin.search(/[^ACTG]/) == -1 ? "Yes" : "No";
+
+    // VERSION AVEC MATCH = 4ms
+    const adnL = (brin) =>
+      brin.match(/[^ACTG]/) != null ? "No" : "Yes";
+
+    // VERSION AVEC TEST = 5ms
+    const adn = (brin) =>
+      (/[^ACTG]/i).test(brin) ? "No" : "Yes";
+
+  </script>
+</body>
+
+</html>
