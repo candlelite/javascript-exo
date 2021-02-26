@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automate Fini Déterministe</title>
+</head>
+
+<body>
+  <h1>Automate Fini Déterministe</h1>
+  <script>
+    /* 
+    https://youtu.be/jGI21XtzrsY
+
+      // état initial par défaut des automates = 0
+
+      Automate 1 : 
+      a -> 0, b -> 1, final = 1
+      tr[0]={a:0, b:1}
+      tr[1]={a:0, b:1}
+      l'accu sera l'index de tr dans le réduce
+
+    */
+
+    // Fonction constructeur d'objet
+    function automate(tr, final, puit = -1) {
+      this.tr = tr;
+      this.final = final;
+      this.puit = puit;
+      this.accepter = (mot) =>
+        this.final.includes([...mot].reduce((accu, valeur) => {
+          var suivant = this.tr[accu][valeur];
+          return isNaN(suivant) ? (this.puit < 0 ? accu : this.puit) : suivant;
+        }, 0)
+        )
+    }
+
+    // Instantiation de l'automate "a1"
+    a1 = new automate([{ a: 0, b: 1 }, { a: 0, b: 1 }], [1]);
+    //                      tr[Ø]            tr[1]
+    //                    tr[0][a]=0      tr[1][a]=0
+    //                    tr[0][b]=1      tr[1][b]=1
+    console.log(a1.accepter("abbagabab"));
+
+    // Instantiation de l'automate "a2"
+    a2 = new automate([{ a: 1 }, { a: 0 }], [1]);
+    //                      tr[Ø]            tr[1]
+    //                    tr[0][a]=1     tr[1][a]=0
+    console.log(a2.accepter("abbaakkkkabab"));
+    console.log("test a impair = " + /^b*ab*(ab*a)*$/.test("babu"));
+
+
+    // Instantiation de l'automate "a3"
+    a3 = new automate([{ a: 1 }, { i: 2 }, { s: 5, t: 5, e: 3, m: 6 }, { n: 4 }, { t: 5 }, {}, { e: 7 }, { r: 5 }, {}], [2, 5, 7], 8);
+    //                                                                                                            PUIT            PUIT        
+    console.log(a3.accepter("aimer"));
+
+    // Instantiation de l'automate "a4"
+    a4 = new automate([{ a: 1 }, { b: 2 }, { b: 2, a: 2 }], [2]);
+    console.log(a4.accepter("auab"));
+
+    // Instantiation de l'automate "a5"
+    a5 = new automate([{ a: 1, b: 0 }, { a: 1, b: 2 }, { b: 2, a: 2 }], [2]);
+    console.log(a5.accepter("auba"));
+
+    console.log("test = " + /^[a-b]*(ab)[a-b]*$/.test("bab"));
+    a45 = (m) => /^[a-b]*(ab)[a-b]*$/.test(m);
+
+    console.log(a45('baaaa'));
+
+
+
+
+  </script>
+</body>
+
+</html>
