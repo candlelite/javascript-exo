@@ -70,7 +70,29 @@
 
     console.log(a45('baaaa'));
 
+    /*
+      reply
+      Schraf : Maths-info
+      2021-02-26
+      Je ne me souviens plus de la solution que j'attendais au moment 
+      où j'ai fait la vidéo ;-) mais c'est bien : contient 'ab'. 
+      Si on ne teste pas l'alphabet on peut écrire plus simplement 
+      a45 = m => /ab/.test(m) 
+      ou 
+      a45 = m => /^[ab]*ab[ab]*$/.test(m) 
+      pour être sûr de n'avoir que des 'a' et des 'b' ou votre solution 
+      équivalente. 
 
+            a45 = m => /^[ab]*ab[ab]*$/.test(m) 
+
+            Il n'y a pas besoin du tiret entre le a et le b entre crochet
+            [a-b] -> a à  b
+            [ab]  -> a ou b
+
+            Il n'y a pas besoin des parentaises autour de ab
+            (ab) -> groupe ab
+            ab   -> suite  ab
+    */
 
 
   </script>
