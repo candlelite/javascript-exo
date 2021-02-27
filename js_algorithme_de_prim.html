@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Algorithme de Prim</title>
+</head>
+
+<body>
+
+  <canvas id="cv"></canvas><br>
+
+  <button id="eff">Effacer</button>
+  <button id="alea">Aléa</button>
+  <button id="pts">Points seuls</button>
+  <button id="algo">Algo Prim</button>
+
+  <script>
+    /*
+    https://youtu.be/da-YsqVfpQc
+
+      théorème de Phytagore :
+       Si on a un triangle carré avec comme sommets a, b, c, ou c est l'angle droit
+       ac^2 + bc^2 = ab^2
+       example avec ac=3cm, bc=2cm -> 3^2 + 2^2 -> 9 + 4 -> 13
+       ab = racine carrée de 13 = 3,6cm
+       
+       Pour calculer la plus coute distance entre un point et un autre, pas besoin 
+       de faire la racine carré. 
+     
+    */
+    //var cv = document.getElementById("cv");
+    //var ctx = cv.getContext('2d');
+    //console.log(cv);
+    var largeur = window.innerWidth - 15;
+    var hauteur = window.innerHeight - 50;
+    cv.width = largeur;
+    cv.height = hauteur;
+
+    // Effacer le canvas cv, (il peut y avoir plusieurs canvas)
+    const effacer = (cv) => cv.getContext("2d").clearRect(0, 0, cv.width, cv.height);
+
+    const tracer = (pts, ctx) => { // pts = la liste des points XY [[X,Y],[X,Y],[X,Y]]
+      ctx.beginPath(); // on lui dit qu'on débute une trajectoire
+      ctx.strokeStyle = "black"; // couleur du trait.
+      ctx.lineWidth = 5;
+      //pts.forEach(([x, y]) => { // Pour chaque point : 
+      //  ctx.rect(x - 2, y - 2, 4, 4) // affichier un carré autour du point
+      //});
+      pts.forEach(([x, y], k) => ctx.rect(x - 2, y - 2, 4, 4));
+      ctx.stroke(); // tracer ce qu'on a défini ci-dessus
+    }
+
+    const droite = (A, B, ctx) => {
+      ctx.beginPath(); // on lui dit qu'on débute une trajectoire
+      ctx.strokeStyle = "white"; // couleur du trait.
+      ctx.lineWidth = 5;
+      ctx.moveTo(A[0], A[1]); // on se déplace aux coordonnées XY du premier point
+      ctx.lineTo(B[0], B[1]); // ensuite on va faire une ligne jusqu'à XY du second point
+      ctx.stroke(); // tracer ce qu'on a défini ci-dessus
+    }
+
+    const dist = (A, B) => ((A[0] - B[0]) * (A[0] - B[0]) + (A[1] - B[1]) * (A[1] - B[1]));
+
+    const prim = (sommets, ctx) => {
+      // var queue = Array.from(sommets);
+      // >>>>>>>>>>>>>>>>>>>>> question pour le prof
+      var queue = [...sommets];
+      console.log(queue);
+      var atteint = [queue.shift()]; // récupère le 1er élément, et en même temps élimine cette élément de la queue, et on met tout ça dans une liste, c'est pour ça qu'il y a des crochets autours
+      while (queue.length > 0) {
+        var mini = atteint.reduce((a, r, i) => {
+          queue.forEach((u, j) => {
+            var d = dist(r, u);
+            if (d < a[2]) { a = [i, j, d] }
+          });
+          return a
+        }, [0, 0, Infinity])
+        droite(atteint[mini[0]], queue[mini[1]], ctx)
+        atteint.push(queue.splice(mini[1], 1)[0])
+      }
+      tracer(atteint, ctx)
+    }
+
+    var obj = ({
+      init() { console.log(cv);[cv, eff, alea, pts, algo].forEach(e => e.addEventListener('click', this)) },
+      ctx: cv.getContext("2d"),
+      rect: cv.getBoundingClientRect(),
+      sommets: [],
+      handleEvent(e) {
+        effacer(cv)
+        console.log(e);
+        this[e.target.id](e); // this.cv(e) = this["cv"](e)
+      },
+      cv(e) {
+        console.log(this.rect);
+        // this.sommets.push([e.clientX - this.rect.left, e.clientY - this.rect.top])
+        // >>>>>>>>>>>>>>>>>>>>>>>> question pour le prof
+        this.sommets.push([e.layerX, e.layerY])
+        this.algo()
+      },
+      eff() { this.sommets = [] },
+      alea() {
+        this.sommets = [...Array(200)].map(() =>
+          [Math.random() * this.rect.width, Math.random() * this.rect.height])
+        this.pts()
+      },
+      pts() { tracer(this.sommets, this.ctx) },
+      algo() { prim(this.sommets, this.ctx) }
+    }).init();
+  </script>
+
+  <style type="text/css">
+    canvas,
+    button {
+      background-color: rgb(0, 176, 240);
+      font-size: 14pt;
+      color: white;
+    }
+  </style>
+</body>
+
+</html>
