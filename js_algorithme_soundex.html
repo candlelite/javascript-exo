@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Algorithme Soundex</title>
+  <style>
+    h1,
+    input,
+    div {
+      font-family: Tahoma;
+      font-size: 16pt;
+    }
+
+    input {
+      background-color: yellowgreen;
+    }
+
+    div {
+      border: solid 1pt;
+      margin-top: 10pt;
+      padding: 10pt;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Soundex sur les prénoms</h1>
+  <input id="prenom" placeholder="Tapez un prénom..."><br>
+  <div id='sortie'></div>
+  <script>
+    /*
+    https://youtu.be/V-7KIORYiwE
+    L'algorithme exact procède comme suit :
+
+    Supprimer les éventuelles 'espaces' initiales
+    Mettre le mot en majuscule
+    Conserver la première lettre de la chaîne
+    Supprimer toutes les occurrences des lettres : 
+    a, e, h, i, o, u, w, y (à moins que ce ne soit la première lettre du nom)
+    Attribuer une valeur numérique aux lettres restantes de la manière suivante :
+        Version pour le français :
+            1 = B, P
+            2 = C, K, Q
+            3 = D, T
+            4 = L
+            5 = M, N
+            6 = R
+            7 = G, J
+            8 = X, Z, S
+            9 = F, V
+    Si deux lettres (ou plus) avec le même nombre sont adjacentes dans le nom d'origine, 
+    ou s'il n'y a qu'un h ou un w entre elles, alors on ne retient que la première de
+     ces lettres.
+    Renvoyer les quatre premiers octets complétés par des zéros.
+
+    En effectuant cet algorithme, on obtient avec "Robert" et "Rupert" 
+    la même chaîne : "R163", tandis que "Rubin" donne "R150". 
+  */
+    prenom.addEventListener('keyup', (e) =>
+      sortie.innerHTML = trouver(prenom.value, prenoms));
+    var soundex = (s, t = clean(s)) => ([...t.slice(1)]
+      .reduce((a, v) => a + "01230120022455012623010202"[v.charCodeAt(0) - 65], t[0])
+      .replace(/0/g, '')
+      .replace(/(\w)\1+/g, '$1')
+      + "000").slice(0, 4)
+
+    var clean = (m) => m.toLowerCase()
+      .replace(/ç/g, 'c')
+      .replace(/[^a-z]/g, '')
+      .toUpperCase()
+
+    var hamming = (m1, m2) => [...m1].filter((c, k) => c != m2[k]).length
+
+    var trouver = (v, p) => v.length > 0 ? p.reduce((a, c) => {
+      var d = hamming(soundex(c), soundex(v));
+      return d < 2 ? a.concat([[c, d]]) : a
+    }
+      , [])
+      .sort((a, b) => a[1] - b[1])
+      .map(m => m[0][0] == v[0].toUpperCase() ? "<b>" + m[0] + "</b>" : m[0]).join(', ') : ""
+
+    var prenoms = ['Jean', 'Philippe', 'Michel', 'Alain', 'Patrick', 'Nicolas', 'Christophe', 'Pierre', 'Christian', 'Éric', 'Frédéric', 'Laurent', 'Stéphane', 'David', 'Pascal', 'Daniel', 'Alexandre', 'Julien', 'Thierry', 'Olivier', 'Bernard', 'Thomas', 'Sébastien', 'Gérard', 'Didier', 'Dominique', 'Vincent', 'François', 'Bruno', 'Guillaume', 'Jérôme', 'Jacques', 'Marc', 'Maxime', 'Romain', 'Claude', 'Antoine', 'Franck', 'Jean-Pierre', 'Anthony', 'Kévin', 'Gilles', 'Cédric', 'Serge', 'André', 'Mathieu', 'Benjamin', 'Patrice', 'Fabrice', 'Joël', 'Jérémy', 'Clément', 'Arnaud', 'Denis', 'Paul', 'Lucas', 'Hervé', 'Jean-Claude', 'Sylvain', 'Yves', 'Ludovic', 'Guy', 'Florian', 'Damien', 'Alexis', 'Mickaël', 'Quentin', 'Emmanuel', 'Louis', 'Benoît', 'Jean-Luc', 'Fabien', 'Francis', 'Hugo', 'Jonathan', 'Loïc', 'Xavier', 'Théo', 'Adrien', 'Raphaël', 'Jean-François', 'Grégory', 'Robert', 'Michaël', 'Valentin', 'Cyril', 'Jean-Marc', 'René', 'Lionel', 'Yannick', 'Enzo', 'Yannis', 'Jean-Michel', 'Baptiste', 'Matthieu', 'Rémi', 'Georges', 'Aurélien', 'Nathan', 'Jean-Paul', 'Marie', 'Nathalie', 'Isabelle', 'Sylvie', 'Catherine', 'Martine', 'Christine', 'Françoise', 'Valérie', 'Sandrine', 'Stéphanie', 'Véronique', 'Sophie', 'Céline', 'Chantal', 'Patricia', 'Anne', 'Brigitte', 'Julie', 'Monique', 'Aurélie', 'Nicole', 'Laurence', 'Annie', 'Émilie', 'Dominique', 'Virginie', 'Corinne', 'Élodie', 'Christelle', 'Camille', 'Caroline', 'Léa', 'Sarah', 'Florence', 'Laetitia', 'Audrey', 'Hélène', 'Laura', 'Manon', 'Michèle', 'Cécile', 'Christiane', 'Béatrice', 'Claire', 'Nadine', 'Delphine', 'Pauline', 'Karine', 'Mélanie', 'Marion', 'Chloe', 'Jacqueline', 'Elisabeth', 'Evelyne', 'Marine', 'Claudine', 'Anais', 'Lucie', 'Danielle', 'Carole', 'Fabienne', 'Mathilde', 'Sandra', 'Pascale', 'Annick', 'Charlotte', 'Emma', 'Severine', 'Sabrina', 'Amandine', 'Myriam', 'Jocelyne', 'Alexandra', 'Angelique', 'Josiane', 'Joelle', 'Agnes', 'Mireille', 'Vanessa', 'Justine', 'Sonia', 'Bernadette', 'Emmanuelle', 'Oceane', 'Amelie', 'Clara', 'Maryse', 'Anne-marie', 'Fanny', 'Magali', 'Marie-christine', 'Morgane', 'Ines', 'Nadia', 'Muriel', 'Jessica', 'Laure', 'Genevieve', 'Estelle']
+  </script>
+</body>
+
+</html>
