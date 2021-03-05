@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Créer une petite bibliothèque - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h1 id='titre'>Créer une petite bibliothèque</h1>
+  <h2 id='sousTitre'>Merci à tous</h2>
+
+  <ul>
+    <li>Janvier</li>
+    <li>Février</li>
+    <li>Mars</li>
+    <li>Avril</li>
+    <li>Mai</li>
+    <li>Juin</li>
+  </ul>
+
+  <script type="text/javascript">
+
+    /*
+    https://youtu.be/IKENadtB4kM
+    on créé un objet "_" dans lequel on va rajouter des méthodes 
+
+    */
+    // <<<<<<<<<<<<<<<< DEBUT fonction constructeur <<<<<<<<<<<<<<<<<<<<<<<<<<<
+    // >>>>>>>>>>>>>>>>>> ci-dessous ça serait pour faire une fonction constructeur
+    function __() {
+      this.double = x => 2 * x
+    };
+    // >>>>>>>>>>>>>>>>> de laquel on pourrait créer (instancier) un nouvel objet
+    const ___ = new __();
+    // >>>>>>>>>>>>>>>> et en exécuter les méthodes
+    console.log(___.double(5)); //résultat = 10
+    // <<<<<<<<<<<<<<<< FIN fonction constructeur <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+    // la on créé un objet "_" vide
+    const _ = {
+      doubl: function (x) { return x * 2 }, //méthode DEFINIE À L'INTÉRIEUR DE L'OBJET
+    };
+    console.log(_.doubl(5))
+    // puis on lui défini des méthodes
+    // définition de la méthode "double" pour l'objet "_"
+    _.double = x => x * 2; //méthode DEFINIE À L'EXTERIEUR DE L'OBJET
+    // définition de la méthode "id" pour l'objet "_"
+    // à utiliser quand il n'y a pas de fonction en second paramètre pour map et filter
+    _.id = x => x;
+
+    // définition de la méthode "map" qui fonctionnera aussi bien avec un chaine qu'un tablea
+    _.map = (valeur, faire) => faire ? [...valeur].map(faire) : _.id(valeur);
+    console.log(_.map("coucou", v => v.charCodeAt(0)));
+    console.log(_.map("coucou"));
+    // corrigé du prof
+    _.map2 = (arr, f = _.id) => [...arr].map(v => f(v));
+    console.log(_.map2("coucou", u => u.charCodeAt(0)));
+    console.log(_.map2("coucou"));
+
+    // définition de la méthode "filter" qui fonctionnera aussi bien avec un chaine qu'un tablea
+    // avec 2 noms pour la même méthode "filter" et "filtrer"
+    // avec un test qui renvoie sur rien si le 2ème param qui contien la callback n'est pas passé
+    _.filter = _.filtrer = (valeur, test = () => true) => [...valeur].filter(c => test(c));
+    console.log(_.filtrer("coucou", c => c == 'o'));
+
+    // définition de la méthode "uniq" qui fonctionnera aussi bien avec un chaine qu'un tablea
+    _.uniq = _.unique = (valeur) => [...valeur].reduce((accu, el) => [...accu].find(e => e == el) ? accu = accu : accu.concat(el), []);
+    console.log(_.uniq("abracadabra"));
+    // corrigé du prof (qui ne fonctionne pas)
+    // _.uniq2 = (arr) => [...arr].reduce((a, v) => a.inludes(v) ? a : a.concat(v), []);
+    // console.log(_.uniq2("abracadabra"));
+
+    // définition de la méthode "join" qui fonctionnera aussi bien avec un chaine qu'un tablea
+    // sans séparateur par défaut, donc separateur ='' par défaut, c'est à dire si le param n'est pas passé
+    _.join = _.joindre = (valeur, separateur = '') => [...valeur].join(separateur);
+    console.log(_.join(_.uniq("abracadabra"), ';'));
+
+    // définition de la méthode "inter" 
+    // >>>>>>>>>>>>>>>>>>> NOUVELLE CHOSE APPRISE : 
+    // >>>>>>>>>>>>>>>>>>> const f = (x, ...reste) => reste
+    // f(1,2,3,4) donne Array [2,3,4]
+    // f('lundi','mardi','mercredi', 'jeudi') donne Array['mardi','mercredi', 'jeudi']
+    _.inter = (groupeA, ...autres) =>  // donc, tous les params en plus de groupeA sont dans un tableau "autres[]" 
+      _.uniq(groupeA).reduce((a, v) =>
+        autres.every(autre =>
+          _.uniq(autre).includes(v)) ? a.concat(v) : a
+        , []
+      );
+    console.log(_.inter('moine', 'monique', 'marie', 'sophie'));
+
+    // définition de la méthode "echelle"
+    _.echelle = (arr, y1, y2, entier = true) => {
+      x1 = Math.min(...arr);
+      x2 = Math.max(...arr);
+      y = arr.map(x => y1 + (y2 - y1) * (x - x1) / (x2 - x1));
+      return entier ? y.map(el => el | 0) : y;
+    }
+    console.log(_.echelle([2, 6, 10, 7, 1], 0, 20));
+
+    // définition de la méthode "forEach"
+    _.forEach = _.chaque = (arr, f = _.id) => [...arr].forEach(v => f(v));
+
+    // définition de la méthode "_.balise"
+    _.balise = (element) => typeof element === 'string' ? document.querySelectorAll(element) : [element];
+
+    // définition de la méthode "css"
+    _.css = (element, attribu, valeur) => {
+      _.forEach(_.balise(element), e => {
+        console.log(element);
+        e.style[attribu] = valeur;
+      });
+    }
+    _.css(titre, 'color', 'green');
+    _.css('li', 'color', 'red');
+    _.css('#sousTitre', 'color', 'violet');
+    _.css(sousTitre, 'opacity', 0.4);
+    _.css('h2', 'font-size', '70px');
+
+    /*
+      On pourrait mettre la bibliothèque dans un fichier JS à part :
+    
+      <script src="bibli.js"><script>
+
+      puis écrire du code comme ci-dessous :
+    */
+
+    _.forEach(_.balise('li'), l => l.innerHTML = l.innerHTML.toUpperCase());
+
+    _.forEach(_.balise('li'), l => _.css(l, 'opacity', l.innerText.includes('V') ? 1 : 0.2));
+
+  </script>
+
+</body>
+
+</html>
