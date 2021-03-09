@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Mariages stables</h2>
+
+  <script type="text/javascript">
+
+    const menPref =
+      [                        // Les hommes
+        [2, 3, 1, 0],   // préférences de l'homme 0
+        [0, 3, 2, 1],   // préférences de l'homme 1
+        [2, 0, 3, 1],   // préférences de l'homme 2
+        [3, 0, 1, 2]    // préférences de l'homme 3
+      ];
+    const womenPref =
+      [                        // Les femmes
+        [2, 0, 3, 1],   // préférences de la famme 0
+        [2, 0, 3, 1],   // préférences de la famme 1
+        [2, 3, 0, 1],   // préférences de la famme 2
+        [0, 1, 3, 3]    // préférences de la famme 3
+      ];
+
+    const affecter = (arr, i, j) => { arr[0][i] = j; arr[1][j] = i; return arr };
+
+
+    var mariageStable = (men, wom) => {
+
+      const VIDE = -1;
+      //console.log(menPref);
+
+      //var couples = [[...men], [...wom]].map(a => a.fill(VIDE));
+      var couples = [men, wom].map(a => a.fill(VIDE));
+
+
+      console.log(couples);
+
+      while (couples[0].includes(VIDE)) {
+        var m = couples[0].indexOf(VIDE);
+        console.log(men);
+        var w = men[m].shift();
+        if (couples[1][w] == VIDE) {
+          couples = affecter(couples, m, w);
+        } else if (wom[w].indexOf(m) < wom[w].indexOf(couples[1][w])) {
+          couples[0][couples[1][w]] = VIDE;
+          couples = affecter(couples, m, w);
+        }
+
+      }
+      return couples[0].map((v, k) => `${k}-${v}`).join('\n');
+    };
+
+    console.log(mariageStable(menPref, womenPref));
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>
