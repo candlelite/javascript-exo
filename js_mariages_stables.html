@@ -36,14 +36,15 @@
       //console.log(menPref);
 
       //var couples = [[...men], [...wom]].map(a => a.fill(VIDE));
-      var couples = [men, wom].map(a => a.fill(VIDE));
-
+      var couples = [men.slice(), wom.slice()].map(a => a.fill(VIDE));
 
       console.log(couples);
+      console.log(men);
+
 
       while (couples[0].includes(VIDE)) {
         var m = couples[0].indexOf(VIDE);
-        console.log(men);
+        //console.log(men);
         var w = men[m].shift();
         if (couples[1][w] == VIDE) {
           couples = affecter(couples, m, w);
@@ -57,10 +58,6 @@
     };
 
     console.log(mariageStable(menPref, womenPref));
-
-
-
-
 
   </script>
 
