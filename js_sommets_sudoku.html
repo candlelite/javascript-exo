@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Exercice JavaScript - Schraf Maths-info</title>
+</head>
+
+<body>
+
+  <h2>Colorisation d'un graphe</h2>
+
+  <script type="text/javascript">
+
+    //var contraintes = [["hist", "fr"], ["fr", "ang"], ["ang", "hist"], ["fr", "ang", "bio"], ["bio", "ang"]];
+    var contraintes = [["A", "B", "E"], ["A", "D","E"], ["B", "F"], ["C", "E"]];
+
+    console.log("\n-----\nLes contraintes :");
+    console.log(contraintes);
+    // sommets = new Set(('' + contraintes).split(','));
+    // sommets = new Set((contraintes.toString()).split(','));
+    // sommets = [].concat(...contraintes).reduce((a,v)=> a.includes(v) ? a : a.concat(v),[]);
+    // sommets = new Set((contraintes.join(',')).split(','));
+    sommets = new Set([].concat(...contraintes));
+    console.log("\n-----\nLes Sommets :");
+    console.log(sommets);
+    //console.log([...sommets.keys()]);
+
+    //graphe = new Map();
+    //[...sommets.keys()].forEach(v => graphe.set(v, new Set()));
+    graphe = new Map([...sommets.keys()].map(v => [v, new Set()]));
+    console.log("\n-----\nLe graphe vide:");
+    console.log(graphe);
+
+    //ma version pour remplir le graphe
+    /*
+    [...graphe.keys()].forEach(k => 
+      contraintes.forEach(t => 
+      t.includes(k) ?
+        t.forEach(v => v != k ? graphe.get(k).add(v) : null)
+        : null)
+    );
+    */
+
+    //le corrigé du prof pour remplir le graphe
+    //bien plus intelligent que ma solution !!!
+    for (var c of contraintes)
+      for (var v of c)
+        for (var w of c)
+          if (v != w) graphe.get(v).add(w)
+    console.log("\n-----\nLe graphe rempli:");
+    console.log(graphe);
+
+    //console.log(graphe.entries());
+    //console.log(...graphe.entries());
+    //console.log([...graphe.entries()]); 
+    //transformer le Map en tableau pour pouvoir le trier puis le retransformer en Map
+    graphe = new Map([...graphe.entries()].sort((a, b) => (b[1].size - a[1].size)));
+    console.log("\n-----\nLe graphe trié:");
+    console.log(graphe);
+
+    couleurs = new Map([...graphe.keys()].map(s => [s, 0]));
+    console.log("\n-----\nInnitialisation des couleurs:");
+    console.log(couleurs);
+
+    //console.log([...couleurs]);
+/*
+    var coul = 1;
+    while ([...couleurs.values()].some(v => v == 0)) {
+      // sv pour "Sommet Vide"
+      var sv = [...couleurs.values()].indexOf(0);
+      //console.log(sv);
+      //console.log([...couleurs][sv][0]);
+      //couleurs.set ([...couleurs][sv][0], coul);
+      //console.log([...couleurs]);
+      for (s of couleurs) {
+        //console.log("s[0]");
+        //console.log(s[0]);
+        //console.log("s[1]");
+        //console.log(s[1]);
+        //console.log("[...couleurs][sv][0]");
+        //console.log([...couleurs][sv][0]);
+        if (s[1] == 0 && !graphe.get([...couleurs][sv][0]).has(s[0])) {
+          //console.log("[...couleurs][sv][s[0]]");
+          //console.log([...couleurs][sv][s[0]]);
+          couleurs.set(s[0], coul);
+        }
+      }
+      //console.log([...couleurs]);
+      coul++;
+    };
+    console.log("\n-----\nAttribution des couleurs:");
+    console.log([...couleurs]);
+*/
+
+    //--------------------------------------
+    //Copie de la même fonction sans les log 
+    var n = 1;
+    while ([...couleurs.values()].some(v => v == 0)) {
+      var sv = [...couleurs.values()].indexOf(0);
+      //couleurs.set ([...couleurs][sv][0], n);
+      for (s of couleurs) 
+        if (s[1] == 0 && !graphe.get([...couleurs][sv][0]).has(s[0])) couleurs.set(s[0], n);
+      n++;
+    };
+
+
+    console.log("\n-----\nAttribution des couleurs:");
+    console.log([...couleurs]);
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>
