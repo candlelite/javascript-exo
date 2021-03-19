@@ -37,13 +37,6 @@ for (var y = 0; y < LONGUEUR; y++) {
 console.log("\n-----\nLe graphe rempli:");
 console.log(graphe);
 
-//console.log(graphe.entries());
-//console.log(...graphe.entries());
-console.log([...graphe.entries()]);
-//transformer le Map en tableau pour pouvoir le trier puis le retransformer en Map
-graphe = new Map([...graphe.entries()].sort((a, b) => (b[1].size - a[1].size)));
-console.log("\n-----\nLe graphe trié:");
-console.log(graphe);
 
 couleurs = new Map([...graphe.keys()].map(s => [s, -1]));
 console.log("\n-----\nInnitialisation des couleurs:");
@@ -64,69 +57,45 @@ const couleur = [];
 for (i = 0; i < LONGUEUR; i++) {
   couleur[i] = i;
 }
-
-//trier les couleurs par ordre qu'il en a dans la grille en fixe
-couleur.sort((a, b) => (
-  ([...couleurs.entries()].filter(c => c[1] == b)).length
-  -
-  ([...couleurs.entries()].filter(c => c[1] == a)).length
-));
-console.log("\n-----\nCouleurs triées:");
+console.log("couleur");
 console.log(couleur);
 
+// pile qui va empiler et dépiler les cases remplies puis effacées
+const pile = [];
 
-var ligne = false;
-//var mem_x = Array(Array(), Array(), Array(), Array(), Array(), Array(), Array(), Array(), Array());
-var mem_x = new Array();
-for (i = 0; i < LONGUEUR; i++) {
-  mem_x[i] = new Array()
-}
+/*
+On prend le sommet(case) vide, qui a le moins de cases reliées qui 
+sont déjà remplies,
 
-//for (var n = 0; n < LONGUEUR; n++) {
-for (var n = 8; n > -1; n--) {
-  var x = 0;
-  var y = 0;
-  while (y < LONGUEUR) {
-    ligne = false;
-    x = 0;
-    while (x < LONGUEUR) {
-      var c = couleurs.get(`${y},${x}`);
-      if (ligne == false && (c == -1 || c == n) && [...couleurs].filter(v => v[1] == n).every(k => !graphe.get(k[0]).has(`${y},${x}`))) {
-        couleurs.set(`${y},${x}`, n);
-        mem_x[n][y] = c == n ? LONGUEUR - 1 : x;
-        ligne = true;
-        //x = LONGUEUR;
-        //console.log(`${y},${x} --> ${n}---> y , x`);
-      }
-      //}
-      else if ((x == LONGUEUR - 1) && (ligne == false)) {
-        //console.log("***");
-        //console.log(`${y},${x} --> couleur:${n} --> false`);
-        couleurs.set(`${y - 1},${mem_x[n][y - 1]}`, -1);
-        if (mem_x[n][y - 1] < LONGUEUR - 1) {
-          //console.log("COUCOU");
-          x = mem_x[n][y - 1];
-          y = y - 1;
-        } else {
-          // J'ai l'impression que ce cas n'arrive jamais, 
-          // la position du x de la couleur sur la ligne y-1
-          // n'est jamais 8 quand ça fonctionne pas sur la ligne y
-          if (mem_x[n][y - 2] < LONGUEUR - 1) {
-            couleurs.set(`${y - 2},${mem_x[n][y - 2]}`, -1);
-            x = mem_x[n][y - 2];
-            y = y - 2;
-          }
-        };
-        //console.log(mem_x[n][y]);
-        //console.log("***");
+*/
+var c = 0;
+var rempli = false;
+while ([...couleurs].filter(e => e[1] == -1).length > 0) {
+  trous = [...couleurs].filter(e => e[1] == -1).sort((a, b) =>
+    [...graphe.get(a[0])].filter(v => couleurs.get(v) == -1).length
+    -
+    [...graphe.get(b[0])].filter(v => couleurs.get(v) == -1).length
+  );
+  trou = trous[0][0];
+  c = 0;
+  rempli = false;
+  while (rempli == false) {
+    if (c < LONGUEUR) {
+      if ([...couleurs].filter(e => e[1] == couleur[c]).every(e => !graphe.get(e[0]).has(trou))) {
+        //console.log("OK");
+        couleurs.set(trou, c);
+        pile.push([trou, c]);
+        rempli = true;
       };
-      x++
-      //console.log("----------------------------------------");
+    } else {
+      p = pile.pop();
+      trou = p[0];
+      c = p[1];
+      couleurs.set(trou, -1);
     };
-    y++
+    c++
   };
 };
 
-console.log("\n-----\nAttribution des couleurs:");
-console.log([...couleurs]);
-console.log(mem_x);
+console.log("\n-----\ncouleurs résolues:");
+console.log(couleurs);
