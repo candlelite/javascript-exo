@@ -11,7 +11,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "js_sudoku_beta0_0-02.js"
+      "program": "js_sudoku/js_sudoku_beta0_1.js"
       
     }
   ]
