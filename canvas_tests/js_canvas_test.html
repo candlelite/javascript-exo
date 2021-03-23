@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tests avec Canvas</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <canvas id="canvas"></canvas>
+
+  <script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+    ctx.fillRect(100, 100, 100, 50);
+
+    ctx.beginPath();
+    ctx.moveTo(75, 50);
+    ctx.lineTo(400, 300);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(275, 250, 50, 0, 2 * Math.PI);
+    ctx.fillStyle = 'red';
+    ctx.strokeStyle = 'green';
+    ctx.lineWidth = 5;
+    ctx.fill();
+    ctx.stroke();
+
+    var x = 275;
+    var y = 250;
+    var r = 50;
+    var v = 5;
+    (function anim() {
+      requestAnimationFrame(anim); //appel anim() 60 fois/seconde
+      ctx.clearRect(x - r * 2, y - r - 5, x + r * 2, y - r * 3);
+      //ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, 2 * Math.PI);
+      ctx.fillStyle = 'green';
+      ctx.strokeStyle = 'yellow';
+      ctx.lineWidth = 5;
+      ctx.fill();
+      ctx.stroke();
+      if (x + r > canvas.width || x - r < 0) v = -v;
+      x += v;
+    })(); //fonction qui s'appelle toute seule ()()
+
+  </script>
+
+
+</body>
+
+</html>

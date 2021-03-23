@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Mon projet canvas</title>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="500" height="500">
+    Message pour les navigateurs ne supportant pas encore canvas.
+  </canvas>
+</body>
+<script>
+  window.onload = function () {
+    var canvas = document.getElementById('myCanvas');
+    let elemLeft = canvas.offsetLeft;
+    //console.log(elemLeft);
+    let elemTop = canvas.offsetTop;
+    //console.log(elemTop);
+
+    if (!canvas) {
+      alert("Impossible de récupérer le canvas");
+      return;
+    }
+    var context = canvas.getContext('2d');
+    if (!context) {
+      alert("Impossible de récupérer le context du canvas");
+      return;
+    }
+    const elements = [];
+    elements.push({
+      colour: '#05EFFF',
+      width: 150,
+      height: 100,
+      top: 20,
+      left: 15
+    });
+    elements.push({
+      colour: '#000000',
+      width: 150,
+      height: 100,
+      top: 20,
+      left: 300
+    });
+    // Render elements.
+    elements.forEach(function (element) {
+      context.fillStyle = element.colour;
+      context.fillRect(element.left, element.top, element.width, element.height);
+    });
+    // Add event listener for `click` events.
+    canvas.addEventListener('click', function (event) {
+      var x = event.pageX - elemLeft,
+        y = event.pageY - elemTop;
+      // Collision detection between clicked offset and element.
+      // avec un second param (index), je pourrai savoir
+      // de quelle forme il s'agit.
+      elements.forEach(function (element, index) {
+        if (y > element.top && y < element.top + element.height
+          && x > element.left && x < element.left + element.width) {
+            if(index==0)
+          alert('clicked an element 0000 : y:' + y + ' x:' + x);
+          if(index==1)
+          alert('clicked an element 1111 : y:' + y + ' x:' + x);
+        }
+      });
+    }, false);
+  };
+</script>
+
+</html>

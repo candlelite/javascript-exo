@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="canvas" style="border: 1px solid black; cursor:text;" width="480" height="320"></canvas>
+
+  <script>
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    //variables to store mouse x and y positions
+    var mouseX = 0;
+    var mouseY = 0;
+    var startingX = 0;
+
+    //An array to store every word
+    var recentWords = [];
+
+    //An array for backspace
+    var undoList = [];
+
+    //A function to save canvas state after every key press
+    saveState = () => {
+      undoList.push(canvas.toDataURL());
+    };
+
+    //By default save canvas state first
+    saveState();
+
+    //A function to be called when backspace is pressed
+    undo = () => {
+      undoList.pop();
+
+      var imgData = undoList[undoList.length - 1];
+      var image = new Image();
+
+      //Display old saved state
+      image.src = imgData;
+      image.onload = () => {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(image, 0, 0, canvas.width, canvas.height
+          , 0, 0, canvas.width, canvas.height);
+      };
+
+    };
+
+    //A function called when mouse clicked on canvas
+    canvas.addEventListener("click", (e) => {
+      //Get clicked position to write text
+      mouseX = e.pageX - canvas.offsetLeft;
+      mouseY = e.pageY - canvas.offsetTop;
+      startingX = mouseX;
+
+      //Restart recent words array
+      recentWords = [];
+
+      return false;
+    }, false);
+
+    //Add keydown event to document
+    document.addEventListener("keydown", (e) => {
+      //Set canvas font 
+      context.font = "16px Arial";
+
+      if (e.keyCode === 8) {
+        //backspace is pressed
+        undo();
+
+        //Remove recent word
+        var recentWord = recentWords[recentWords.length - 1];
+
+        //Move the cursor back
+        mouseX -= context.measureText(recentWord).width;
+        recentWords.pop();
+      }
+
+      if (e.keyCode === 13) {
+        //Enter key is pressed 
+        mouseX = startingX;
+        mouseY += 20; //the size of the font + 4
+      } else {
+        //write text to canvas
+        context.fillText(e.key, mouseX, mouseY);
+        //move cursor forward after every key press
+        mouseX += context.measureText(e.key).width;
+
+        saveState();
+        recentWords.push(e.key);
+      }
+    }, false);
+
+  </script>
+
+
+</body>
+
+</html>
