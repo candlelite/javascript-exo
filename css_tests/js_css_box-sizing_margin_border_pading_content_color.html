@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    * {
+      box-sizing: border-box;
+      /* CONTENT-BOX IS SET BY DEFAULT
+          SO I DECIDE TO CHANGE AND SET BORDER-BOX INSTEAD
+      total width  = width  + margin-left + margin-right 
+                            + border-left-width + border-right-width 
+                            + padding-left + padding-right
+
+      total height = height + margin-top + margin-bottom 
+                            + border-top-width + border-bottom-width 
+                            + padding-top + padding-bottom
+      */
+    }
+
+    .bbox {
+      box-sizing: content-box;
+      /* DON'T USE BOTH 
+      content-box-width  = border-box-width  - border-width  - padding width
+      content-box-height = border-box-height - border-height - padding height
+      */
+    }
+
+    #divOne {
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #000000;
+      border-radius: 20px / 10px;
+    }
+
+    #divTwo {
+      margin: 20px 10px 20px 10px;
+      padding: 20px 10px 20px 10px;
+      border-width: 2px;
+      border-color: #ff00ff;
+      border-radius: 40px 20px 10px 5px / 20px 10px 5px 2px;
+      border-style: dotted;
+      /*solid
+                      dotted
+                      dashed
+                      double
+                      groove
+                      ridge
+                      inset
+                      outset
+                      none
+                      hidden*/
+
+
+    }
+
+    #divThree {
+      margin-top: 20px;
+      margin-right: 10px;
+      margin-bottom: 20px;
+      margin-left: 10px;
+      padding-top: 20px;
+      padding-right: 10px;
+      padding-bottom: 20px;
+      padding-left: 10px;
+      border-left: 1px solid #000000;
+      border-top-width: 2px;
+      border-top-style: dashed;
+      border-top-color: #cccccc;
+      border-radius: 10px;
+      border-top-right-radius: 40px / 20px;
+    }
+
+    #withBorderImage1 {
+      border-image-source: url('/images/css/border-image.png');
+      border-image-slice: 70;
+      border-image-repeat: stretch;
+      /*stretch
+                              repeat
+                              round
+                              space*/
+      height: 300px;
+      border-width: 70px;
+      border-style: solid;
+    }
+
+    /*
+      Unit 	Description
+      px  	Pixels
+      %   	Percentage of parent element's dimension (or browser window dimension for body element), e.g. 25%
+      em 	  Dimension is based on standard font size in the browser. 1.0em = standard size.
+      cm  	Centimeters
+      mm 	  Millimeters
+      in 	  Inches
+      pt 	  Point - equal to 1/72 of an inch (because of the previous standard for computer monitors was 72 dpi).
+      pc 	  Pica - equal to 12 points.
+    */
+
+
+    #one {
+      background-color: red;
+                        /*red
+                          green
+                          blue
+                          black
+                          white
+                          gray
+                          magenta
+                          purple
+                          violet*/
+    }
+
+    #two {
+      background-color: #ff0000;
+    }
+
+    #three {
+      background-color: rgb(255, 0, 0);
+    }
+
+    #four {
+      background-color: rgba(255, 0, 0, 1.0);
+    }
+
+    #five {
+      background-color: hsl(0%, 100%, 0%);
+    }
+  </style>
+
+
+
+</body>
+
+</html>

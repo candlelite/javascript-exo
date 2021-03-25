@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    #theButton {
+      background-color: #6666ff;
+      transition-property: background-color;
+      transition-duration: 2s;
+    }
+
+    #theButton:hover {
+      background-color: #ff0000;
+    }
+
+    #theButton2 {
+        width: 200px;
+        transition-property: width;
+        transition-duration: 2s;
+        transition-timing-function: cubic-bezier(0.9, 0.1, 0.1, 0.8);
+      }
+
+    #theButton2:hover {
+      background-color: #ff0000;
+      transition-property: background-color;
+      transition-duration: 2s;
+    }
+  </style>
+  <button id="theButton">Hover over me</button>
+
+  <button id="theButton2">Hover over me</button>
+</body>
+
+</html>

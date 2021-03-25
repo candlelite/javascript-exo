@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    #myElement {
+      display: none;
+      /*        none
+                block
+                inline
+                inline-block
+                grid*/
+    }
+
+    @media only screen and (max-width: 600px) {
+      #myElement {
+        display: none;
+      }
+    }
+
+    @media only screen and (min-width: 601px) {
+      #myElement {
+        display: inline;
+      }
+    }
+  </style>
+
+  <div id="myElement">
+    This DIV element is not displayed
+  </div>
+
+  <div id="myElement">
+    This DIV is only displayed on larger screens
+  </div>
+
+  <p>
+    This text contains <span>display : block</span> elements.
+  </p>
+
+  <p>
+    This text contains <span style="display:block">display : block</span> elements.
+  </p>
+
+  <div>This text is written </div>
+  <div>Inside two div elements.</div>
+  <br />
+  <div style="display:inline">This text is written </div>
+  <div style="display:inline">Inside two div elements.</div>
+
+  <p>
+    This text contains a
+    <span style="width: 150px;">span element</span>
+    and another
+    <span style="width: 150px">span element</span>
+    and some text.
+  </p>
+
+  <p>
+    This text contains a
+    <span style="display: inline-block;
+                 width: 150px;">span element</span>
+    and another
+    <span style="display: inline-block;
+                width: 150px">span element</span>
+    and some text.
+  </p>
+
+
+  <script>
+    var element = document.getElementById("myElement");
+    element.style.display = "none";
+  </script>
+</body>
+
+<!--
+display Value 	HTML Elements With This Default Value
+block         	div, p, table
+inline        	span, b, i, strong, em
+inline-block 	  img
+
+Regardless of what default value an HTML element is using for 
+its display CSS property value, you can always override it by 
+setting the value of the display CSS property to the desired 
+value. 
+-->
+
+</html>

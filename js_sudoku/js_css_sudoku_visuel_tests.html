@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    table.withSpace {
+      border-spacing: 10px;
+      border: 1px solid #cccccc;
+      border-collapse: separate;
+      vertical-align: middle;
+      /*              top
+                      middle
+                      bottom*/
+      text-align: center;
+
+    }
+
+    table.withSpace td {
+      height: 20px;
+      width: 20px;
+      border: 1px solid #cccccc;
+    }
+
+    td {
+      font-size: 650%;
+    }
+
+    td:empty {
+      background-color: #ff2525;
+    }
+
+    tr.example {
+      background-color: #bde9ba;
+    }
+
+    td.example {
+      background-color: #fdda3d;
+    }
+
+    a.greenButtonRound {
+      border: 2px solid #006600;
+      border-radius: 5px;
+      background-color: #009900;
+      color: #ffffff;
+      font-weight: bold;
+      text-decoration: none;
+      margin: 20px;
+      padding: 10px 20px 10px 20px;
+      display: inline-block;
+    }
+
+    a.greenButtonRound:hover {
+      border: 2px solid #009900;
+      background-color: #00cc00;
+    }
+  </style>
+
+  <table class="withSpace">
+    <tr>
+      <td onMouseOver="highlightBG(this, 'red');highlightNext(this, 'red')"
+        onMouseOut="highlightBG(this, 'white');highlightNext(this, 'black')">
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>5</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+  
+  <a href="/next-page.html" class="greenButtonRound">Text link</a>
+
+
+  <script>
+    var table = document.querySelector("table");
+    table.style.width = window.innerWidth + "px";
+    table.style.height = table.style.width;
+
+
+
+
+    [...table.querySelectorAll('td')].forEach((el, index) => {
+      index % 2 == 0 ? el.style.opacity = 1 : el.style.opacity = 0.4;
+      el.innerText = index;
+      console.log(el);
+    });
+
+    [...table.querySelectorAll('td')][10].innerText = "";
+    [...table.querySelectorAll('td')][11].addEventListener("click", () => {
+      console.log("clicked");
+    });
+
+
+
+
+    function highlightNext(element, color) {
+      var next = element;
+      do { // find next td node
+        next = next.nextSibling;
+      }
+      while (next && !('nodeName' in next && next.nodeName === 'TD'));
+      if (next) {
+        next.style.color = color;
+      }
+    }
+
+    function highlightBG(element, color) {
+      element.style.backgroundColor = color;
+    }
+
+
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cascading Style Sheets tests</title>
+
+  <!--The link elemet
+  This file has to be accessible online, 
+  and in this case it has to be located in the same 
+  directory as the HTML file.
+  Notice that the CSS file has no style element. 
+  It only has the CSS rules themselves. -->
+  <link rel="stylesheet" type="text/css" href="my-css-file.css">
+
+  <!--CSS in style Elements in the head-->
+  <!-- In the following exemple, "div", "p" and "input" is the element.
+  border is a property. Each property must be separated 
+  by a semicolon
+  -->
+  <style>
+    div {
+      border: 1px solid black;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    input {
+      border: 1px solid #cccccc;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!--CSS in style Elements in the body-->
+  <style>
+    /*The import element*/
+    @import url('http://jenkov.com/my-website/my-css-file.css');
+
+
+    span {
+      border: 1px solid blue;
+    }
+
+    /*The universal CSS selector is used to select all elements. 
+    It is marked with a *. 
+    Here is a universal CSS selector example:*/
+    * {
+      font-size: 18px;
+    }
+
+    /*Notice the . in the beginning CSS selector part (.green) of the 
+    CSS rule. This signals to the browser that this is a CSS class
+     selector, and that the name after the . is the name of the 
+     CSS class to select. */
+    .green {
+      border: 1px solid green;
+    }
+
+    /*the # to signal that the selector is an ID selector, and then 
+    the ID myElement right after the # to mark what ID to select. */
+    #myElement {
+      border: 1px solid blue;
+    }
+
+    /*You can select these two a elements individually using an 
+    attribute selector. Here is a CSS attribute selector example:*/
+    [href] {
+      font-size: 18px;
+    }
+
+    /*In this case I want to select all HTML elements that have an 
+    href attribute with the value http://jenkov.com. */
+    [href="http://jenkov.com"] {
+      font-size: 25px;
+    }
+
+    /*You can select HTML element based on what an attribute value 
+    starts with. Instead of using the = sign between attribute 
+    name and attribute value, you write ^=. Here is an example: */
+    [href^="http://"] {
+      font-size: 30px;
+    }
+
+    /*You can then use the CSS attribute begins with language code 
+    selector to select all HTML elements with a language code that 
+    starts with en-. Notice the |= part of the selector in the above 
+    CSS rule. That part signals that the attribute value should 
+    either be en or start with en- in the language code. */
+    [lang|="en"] {
+      font-size: 18px;
+
+    }
+
+    /*You can also select HTML elements based on what an attribute 
+    value ends with. Instead of writing ^= you write $= between the 
+    attribute name and attribute value. Here is another example: */
+    [href$=".png"] {
+      font-size: 36px;
+    }
+
+    /*Attribute Contains
+    The CSS attribute contains selector is used to select all HTML 
+    elements with a given attribute which contains the specified 
+    substring. Here is a CSS attribute contains selector example:*/
+    [href*="jenkov.com"] {
+      font-size: 18px;
+    }
+
+    /*Attribute Contains Word*/
+    [myattr~="programmer"] {
+      font-size: 45px;
+    }
+
+    /*Group Selector*/
+    div,
+    p {
+      font-size: 18px;
+    }
+
+    /*Child Selector
+    The child CSS selector is used to select all elements that are 
+    immediate children of some other element. Here is a child CSS 
+    selector example:*/
+    li>a {
+      color: red;
+    }
+
+    /*You can use more than one level of child selectors. Here 
+    is an example: */
+    ol>li>a {
+      font-size: 18px;
+    }
+
+    /*You can select all a elements nested inside the ol element 
+    using this CSS rule: 
+    The descendant selector is marked via the space character.
+     Notice the space between the ol and the a in the selector in 
+     the above CSS rule.*/
+    ol a {
+      font-size: 18px;
+    }
+
+    /*You can select the first p element after the h1 using this 
+    adjacent sibling selector:*/
+    h1+p {
+      font-size: 18px;
+    }
+
+    /*Similarly you could select all table elements adjacent 
+    to a p element using this adjacent sibling selector:*/
+    p+table {
+      font-size: 18px;
+    }
+
+    /*Unlike with the adjacent sibling selector, the general sibling 
+    selector selects all elements that are preceded by another 
+    element (inside the same parent), even if the two elements are 
+    not directly adjacent.
+    A CSS rule using a general sibling selector can be used to select 
+    all p elements which are preceded by another p element somewhere 
+    (inside the same parent), like this:*/
+    p~p {
+      font-size: 18px;
+    }
+
+    /*Pseudo Classes*/
+    a:link {
+      color: #00ff00;
+    }
+
+    a:visited {
+      color: #009900;
+    }
+
+    a:hover {
+      color: #66ff66;
+    }
+
+    a:active {
+      color: #ffff00;
+    }
+
+    /*The :first-child CSS pseudo class selects all elements that are 
+    the first child of some parent HTML element. The :last-child CSS 
+    pseudo class selects all elements that are the last child of some 
+    parent HTML element. Here is an example: */
+    p:first-child {
+      background-color: #ff00ff;
+    }
+
+    p:last-child {
+      background-color: #00ff00;
+    }
+
+    /*:nth-child()
+    The :nth:child() CSS pseudo class selects the nth elements of 
+    some parent. The n could be every element, every 2nd element, 
+    every 3rd element etc. Here is an example: 
+    This example CSS rule selects every second p element inside their 
+    parent elements. This means the p elements with the bodies 2nd 
+    child, 4th child and 6th child. */
+    p:nth-child(2n) {
+      background-color: #ffff00;
+    }
+
+    /*:nth-last-child() from the end*/
+    p:nth-last-child(2n) {
+      background-color: #eeaa00;
+    }
+
+    p:only-child {
+      background-color: #db0a7a;
+    }
+
+
+
+    /*:first-of-type, :last-of-type
+    The :first-of-type CSS pseudo class selects elements that are the 
+    first child of its type inside its parent element. 
+    The :last-of-type CSS pseudo class selects elements that are the 
+    last of its type inside its parent element. Here is an example: */
+    p:first-of-type {
+      background-color: #ffff00;
+    }
+
+    p:last-of-type {
+      background-color: #00ffdd;
+    }
+
+    /*:nth-of-type()
+    The nth-of-type() CSS pseudo class selects all the elements that 
+    are the nth of their type inside their parents. Inside the 
+    parentheses you specify if they are to be every element, every 
+    second, every third etc. element of its type in its parent. 
+    Here is an CSS nth-of-type() example: 
+    The CSS rule in this example selects every second p element 
+    inside their parent elements. Thus, the p elements with the 
+    bodies 2nd p, 4th p and 6th p. You could change the 2n to 3n and 
+    get every third element of its kind inside its parent. */
+    p:nth-of-type(2n) {
+      background-color: #ffff00;
+    }
+
+    /*the same backwards*/
+    p:nth-last-of-type(2n) {
+      background-color: #aabbcc;
+    }
+
+    p:only-of-type {
+      background-color: #06c0b1;
+    }
+
+    /*The :empty CSS pseudo class selects all HTML elements that are 
+    empty, meaning they have no text or child elements inside their 
+    body. Here is an example :empty pseudo class example:*/
+    div:empty {
+      background-color: #c7c9c9;
+    }
+
+    /*:not()
+    The :not() CSS pseudo class selects all of those HTML elements 
+    that do not match the CSS selector given as parameter (inside 
+    the parentheses) to the :not() pseudo class. Here is an example:*/
+    p:not(:last-child) {
+      border-bottom: 1px solid #cccccc;
+    }
+
+    /*:checked
+    The :checked CSS pseudo class selects all input fields that are 
+    checked, meaning all checkboxes. Here is a :checked example:*/
+    input[type="checkbox"]:checked {
+      border: 5px solid #1d1c47;
+    }
+
+    /*:enabled,
+    :disabled The :enabled and :disabled CSS pseudo classes selects 
+    HTML elements that are either enabled or disabled. This will 
+    typically be input fields. Here is an example:*/
+    input:enabled {
+      border: 1px solid #6666ff;
+    }
+
+    input:disabled {
+      border: 1px solid #666666;
+    }
+
+    /*Pseudo Elements*/
+
+    /*::first-letter
+    The :first-letter CSS pseudo element can be used to select the 
+    first letter of HTML elements. For instance, to select the first 
+    letter of all p elements you would write:*/
+    p::first-letter {
+      font-size: 50px;
+    }
+
+    p::first-line {
+      font-size: 29px;
+    }
+
+    /* ::before, ::after
+    The :before and :after CSS pseudo elements matches a virtual 
+    first and last child of the selected HTML element. This is 
+    normally used to insert some extra content (text or HTML) before 
+    or after that virtual last child using the content CSS property. 
+    The content CSS property is used to generate content and insert 
+    into the DOM via CSS. Here is an example:*/
+    .theClass::before {
+      content: "Generated Content";
+    }
+
+    /* Ajoute une flèche après les liens */
+    a::after {
+      content: "→";
+    }
+
+    /*::selection
+    The ::selection pseudo element refers to the selected content 
+    when the user selects e.g. a passage of text with the mouse. 
+    This pseudo element is supported in IE and Chrome, but not in 
+    Firefox. It was part of the CSS 3.0 propposal, but is no longer 
+    part of the specification.
+    Here is a ::selection CSS pseudo element example:*/
+    ::selection {
+      background-color: #ff00ff;
+    }
+  </style>
+
+  <div> Style This! </div>
+  <span> Style This Too! </span>
+
+  <!--CSS in style Attributes-->
+  <div style="border: 1px solid black; font-size: 18px;"> Style This! </div>
+
+  <!--Class Selector :
+  The class selector is another very commonly used CSS selector. 
+  The class selector selects all HTML elements which have 
+  the given CSS class set on them. 
+  You set a CSS class on an HTML element by giving the HTML element ``
+  a class attribute.
+  You target these HTML elements by creating a CSS rule with the 
+  same name as the CSS class to select, and prefix with a dot (.)
+  Here is an example:-->
+  <div class="green"> Text... </div>
+
+  <p class="green"> Paragraph... </p>
+
+  <!--ID Selector
+  The ID selector selects the HTML element which has the given ID. 
+  The ID of an HTML element is set via the id attribute. 
+  You can select this HTML element using an ID selector, 
+  by prefixing the CSS selector with a # and then write the ID of 
+  the HTML element. Here is an example that selects the above HTML 
+  element by its ID. Here is an example: -->
+  <div id="myElement"> My Element </div>
+
+  <!--Notice how the two a elements have different attributes. 
+    The first a element has a href attribute, and the second a 
+    element has a name attribute. -->
+  <a href="http://tutorials.jenkov.com"> Java and Web Development Tutorials</a>
+  <a name="jump-here"></a>
+
+  <a href="http://jenkov.com">jenkov.com</a>
+
+  <a href="http://unautresiteweblamdada.com">Un autre site</a>
+
+  <p lang="en"> English text</p>
+  <p lang="en-UK"> UK English text</p>
+  <p lang="en-US"> US English text</p>
+
+  <a href="jenkov.png">jenkov.png</a>
+
+  <div myattr="i am a programmer">Hello</div>
+
+  <a href="...">This will not be selected</a>
+  <ul>
+    <li><a href="...">This WILL be selected</a></li>
+  </ul>
+
+  <div>
+    <p>First child</p>
+    <p>Second child</p>
+  </div>
+
+  <div>
+    <p>1st child</p>
+    <p>2nd child</p>
+    <p>3rd child</p>
+    <p>4th child</p>
+    <p>5th child</p>
+    <p>6th child</p>
+  </div>
+
+  <div>
+    <h2>1st h2</h2>
+    <p>1st p</p>
+
+    <h2>2nd h2</h2>
+    <p>2nd p</p>
+
+    <h2>3rd h2</h2>
+    <p>3rd p</p>
+  </div>
+
+  <div>
+    <h2>1st h2</h2>
+
+    <p>1st p</p>
+    <p>2nd p</p>
+
+    <p>3rd p</p>
+    <p>4th p</p>
+
+    <p>5th p</p>
+    <p>6th p</p>
+  </div>
+
+  <div style="height:100px; width:500px"></div>
+
+  <div class="theClass" style="height:100px; width:500px">
+    <p>coucou</p>
+    <h1>hello</h1>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    ul {
+      list-style-type: disc;
+      /*
+                      disc
+                      circle
+                      square*/
+      list-style-position: outside;
+      /*                inside*/
+    }
+
+    ol {
+      list-style-type: upper-alpha;
+      /*
+                      decimal
+                      decimal-leading-zero
+                      upper-alpha
+                      lower-alpha
+                      upper-roman
+                      lower-roman
+                      lower-greek*/
+    }
+
+    ul>li {
+      padding-bottom: 20px;
+      padding-left: 25px;
+      /*Background Images on List Items*/
+      background-image: url('/images/arrow-right.png');
+      background-position: 5px 5px;
+      background-repeat: no-repeat;
+      /* By setting display for li elements to inline, the list 
+      items will be rendered as a horizontal list instead of a 
+      vertical list.*/
+      display: inline;
+      /*        inline-block*/
+      /*You can also use the inline-block value instead of inline. 
+      Then you can set the width and height of the li elements 
+      (display: inline normally disables control over the width and 
+      height of elements). 
+       It looks quite similar to the display: inline, as expected, 
+       but gives you control over the width and height of the li 
+       items using the width and height CSS properties. Here is an 
+       example that sets the width of each li element to 100px: 
+      ul>li {
+        display: inline-block;
+         width  : 100px;
+      }*/
+    }
+
+    ul {
+      list-style-image: url('/images/arrow-right.png');
+    }
+  </style>
+  <ul>
+    <li>Item one</li>
+    <li>Item two</li>
+    <li style="padding-left: 20px">With padding</li>
+    <li>Without padding</li>
+  </ul>
+</body>
+
+</html>

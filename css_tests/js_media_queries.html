@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="mycss.css" media="only screen and (max-width: 1200px)">
+
+
+</head>
+
+<body>
+  <style>
+    @import url('my-other-css.css') only screen and (max-width: 1200px);
+
+    @media only screen and (max-width: 1200px) {
+      /* css rules */
+    }
+
+    @media only screen and (max-width: 600px) {
+
+      /* CSS rules for browser widths equal to or less than 600px */
+      body {
+        background-color: #ffffff;
+      }
+    }
+
+    @media only screen and (min-width: 601px) and (max-width: 1200px) {
+
+      /* CSS rules for browser widths from 601px to 1200 px */
+      body {
+        background-color: #ff0000;
+      }
+    }
+
+    @media only screen and (min-width: 1201px) {
+
+      /* CSS rules for browser widths from 1201px and up */
+      body {
+        background-color: #0000ff;
+      }
+    }
+/*
+Media Query Syntax
+
+The syntax of a media query is the same no matter if you use it 
+inside a link element, after an @import instruction, or inside a 
+CSS style sheet. Media queries follow this syntax:
+
+[logic] [media] [and (condition)] [and (condition)] ...
+
+For the [logic] token you can use one of the values:
+Value     	Description
+only 	      The value only means that this media query only matches a certain media type (the next parameter in the media query).
+not 	      The value not means that this media query matches all other than a certain media type (the next parameter in the media query).
+
+The the [media] token you can use one of these values:
+Value     	Description
+screen    	Matches all computer screens. Both on desktop computers, laptops, tablets, smart phones and TVs.
+projection 	Matches projection devices (projectors used in meeting rooms etc.).
+print 	    Matches when a user clicks "print" for the page.
+
+There are more media types, but not all of them are supported by the 
+browser at the time of writing. You can find a full list 
+at http://www.w3.org/TR/CSS21/media.html.
+
+The [and (condition)] blocks set conditions for the screen. 
+For instance, you can use these properties inside a condition block:
+Value           	  Description
+width 	            Specifies the width of the browser window this media query matches.
+min-width        	  Specifies the minimum browser window width this media query matches.
+max-width       	  Specifies the maximum browser window width this media query matches.
+height          	  Specifies the height of the browser window this media query matches.
+min-height 	        Specifies the minimum browser window height this media query matches.
+max-height 	        Specifies the maximum browser window height this media query matches.
+device-width    	  Specifies the width of the device (e.g. monitor width or smart phone screen width) this media query matches.
+min-device-width 	  Specifies the minimum device width this media query matches.
+max-device-width 	  Specifies the maximum device width this media query matches.
+device-height 	    Specifies the height of the device (e.g. monitor height or smart phone screen height) this media query matches.
+min-device-height 	Specifies the minimum device height this media query matches.
+max-device-height 	Specifies the maximum device height this media query matches.
+orientation 	      Matches the orientation of the device viewing the page. Can be set to landscape or portrait .
+aspect-ratio 	      Specifies what aspect ratio of the browser window this media query matches. Aspect ratio is the ratio between the width and height (e.g. 4/3 or 16/9).
+device-aspect-ratio	            Specifies what aspect ratio of the device screen this media query matches. Aspect ratio is the ratio between the width and height (e.g. 4/3 or 16/9).
+-webkit-device-pixel-ratio 	    Specifies what device pixel ratio this media query matches. Only works on webkit (Chrome / Safari), but that is both Android and iOS (as far as I know). Several mobile devices have a device pixel ratio of 1.5 or higher, meaning there is a 1.5 relation between the actual device width / height of the device, and the width / height the browser tells your application it has.
+-webkit-max-device-pixel-ratio 	Specifies what maximum device pixel ratio this media query matches. Only works on webkit (Chrome / Safari), but that is both Android and iOS (as far as I know).
+-webkit-min-device-pixel-ratio 	Specifies what minimum device pixel ratio this media query matches. Only works on webkit (Chrome / Safari), but that is both Android and iOS (as far as I know).
+
+As you might have spotted, the condition properties fall into two 
+groups: The first group is related to the width and height of the 
+browser window, and the second group is related to the width and 
+height of the physical device screen. On a desktop computer, 
+the browser window width may change if the browser is resized by 
+the user, but the device width does not change. That is static 
+(unless the user changes screen resolution on the graphics card).
+
+On a mobile device the browser window width and device width are 
+typically the same, as the browser typically takes up the whole 
+device screen. However, if the user changes orientation of the 
+device, the device width becomes device height and vice versa. 
+*/
+
+
+  </style>
+</body>
+
+</html>

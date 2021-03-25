@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+        body {
+            font-family: Arial;
+            font-size: 14px;
+        }
+        p {
+            font-size: 16px;
+        }
+        .logo {
+            font-family: Helvetica;
+            font-size  : 20px;
+        }
+
+        
+    </style>
+</head>
+    
+<body>
+
+  <div id="header">
+    <span class="logo">Super Co</span>    
+  </div>
+
+  <div id="body">
+    <p>
+        This is the body of my page    
+    </p>
+  </div>
+  <!--
+    CSS Precedence Rules
+
+    When the browser needs to resolve what styles to apply to a given 
+    HTML element, it uses a set of CSS precedence rules. Given these 
+    rules, the browser can determine what styles to apply. The rules 
+    are:
+
+    !important after CSS properties.
+    Specificity of CSS rule selectors.
+    Sequence of declaration.
+  -->
+
+  <style>
+    div {
+        font-family: Arial;
+        font-size: 30px !important;
+    }
+    .specialText {
+        font-size: 10px;
+    }
+  </style>
+  
+  
+  <div class="specialText">
+    This is special text.
+  </div>
+  <!--
+     This example contains two CSS rules which both target the div 
+     element. Normally, a CSS rule with CSS class selector has higher 
+     specificity than a CSS rule with an element selector, so normally 
+     the second CSS rule (.specialText {...} ) would take precedence 
+     over the first CSS rule (div {...} ). That means, that 
+     the .specialText rule would set the font-size of the div element 
+     to 18px.
+     However, since the div {...} CSS rule contains the instruction 
+     !important after the font-size CSS property, then that CSS 
+     property declaration takes precedence over all other 
+     declarations without the !important instruction targeting the 
+     same HTML element. 
+  -->
+
+  <!--
+
+  CSS Selector 	        Description
+
+Inherited styles 	      Lowest specificity of all selectors - since an inherited style targets the element's parent, and not the HTML element itself.
+
+*                       Lowest specificity of all directly targeted selectors
+
+element 	              Higher specificity than universal selector and inherited styles.
+
+attribute 	            Higher specificity than element selector
+
+class 	                Higher specificity than attribute, element and universal selectors.
+
+ID 	                    Higher specificity than class selector.
+
+Combined selectors 	    Gets the specificity of the selectors combined.
+
+CSS properties set      
+directlyon element,     Stronger specificity than ID selector.
+inside style 
+attribute. 	            
+
+-->

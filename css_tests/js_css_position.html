@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    #theRelativeSpan {
+      position: relative;
+      top: -20px;
+      left: -20px;
+      border: 1px solid #cccccc;
+    }
+
+    #theAbsoluteDiv {
+      position: absolute;
+      bottom: 0px;
+      background-color: #cccccc;
+    }
+
+    #theOuterDiv {
+      position: relative;
+      /*        fixed absolute static*/
+      top     : 0px;
+      left    : 0px;
+      border  : 1px solid #cccccc;
+      padding : 10px;
+  }
+
+  #theInnerDiv {
+      position: absolute;
+      top     : 0px;
+      right   : 0px;
+      padding : 10px;
+      background-color: #ccffcc;
+      border  : 1px solid #99cc99;
+  }
+  </style>
+  <p>
+    This is a paragraph with a lot of text inside, and a <span id="theRelativeSpan">relative span element</span>
+    as part of the text.
+  </p>
+
+  <div id="theAbsoluteDiv">
+    This text is positioned with <code>absolute</code> at the bottom of the browser window.
+  </div>
+
+  <div id="theOuterDiv">
+    This is the outer div element.
+    This is the outer div element.
+    This is the outer div element.
+    This is the outer div element.
+  
+    <div id="theInnerDiv">
+        This is the inner div element.
+    </div>
+  </div>
+</body>
+
+</html>

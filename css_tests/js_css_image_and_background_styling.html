@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    img.withBorderAndPadding {
+      padding: 10px;
+      border: 1px solid #d61c1c;
+    }
+
+    img.scaleUp {
+      width: 300px;
+      height: 150px;
+    }
+
+    img.scaleDown {
+      width: 300px;
+      height: 150px;
+    }
+
+    img.scaledUp {
+      width: 300px;
+    }
+
+    img.scaledDown {
+      height: 150px;
+    }
+
+    img.percentages {
+      width: 25%;
+    }
+
+    img.withMaxWidth {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    #withImage {
+      background-image: url('/images/css/bg-image-small.jpg');
+      background-repeat: no-repeat;
+      /*                  no-repeat
+                          repeat
+                          repeat-x
+                          repeat-y*/
+      background-position: left top;
+      /*                  
+                            left    top
+                            center  center
+                            right   bottom
+                            
+                            100px 50px
+                            20px 50%
+                            -20px -20px
+                            */
+      background-attachment: fixed;
+      /*                      fixed
+                              scroll
+                              local*/
+      background-size: 200px 100px;
+      /*               50% 50% */
+
+      background-origin: border-box;
+      /*                border-box
+                          padding-box
+                          content-box*/
+      background-clip: border-box;
+      /*                border-box
+                          padding-box
+                          content-box*/
+
+    }
+
+    #gradient1 {
+      background-image: linear-gradient(180deg, #666666, #000000);
+      height: 100px;
+    }
+
+    #gradient3 {
+      background-image: linear-gradient(180deg, #00ff00 20%, #0000ff 80%);
+      height: 100px;
+    }
+
+    #gradient4 {
+      background-image: linear-gradient(45deg, #00ff00 20%, #ff0000 50%, #0000ff 80%);
+      height: 100px;
+    }
+
+    #gradient5 {
+      background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #00FFFF 0%, #0000FF 95%);
+      height: 100px;
+    }
+
+    #gradient6 {
+      background-image: radial-gradient(circle, #FF0000 0%, #0000FF 100%);
+      height: 100px;
+    }
+
+    #gradient7 {
+      background-image: radial-gradient(circle 100px, #FF0000 0%, #0000FF 100%);
+      height: 100px;
+    }
+
+    #gradient8 {
+      background-image: radial-gradient(circle 100px at 200px 50px, #FF0000 0%, #0000FF 100%);
+      height: 100px;
+    }
+
+    #gradient9 {
+      background-image: radial-gradient(circle closest-side at 200px 50px, #FF0000 0%, #0000FF 100%);
+      height: 100px;
+    }
+
+    #gradient10 {
+      background-image: radial-gradient(circle closest-corner at 200px 50px, #FF0000 0%, #0000FF 100%);
+      height: 100px;
+    }
+
+    #gradient15 {
+      background-image: radial-gradient(ellipse farthest-corner at 200px 50px, #FF0000 0%, #0000FF 100%);
+      height: 100px;
+    }
+  </style>
+  <div id="gradient1"></div>
+  <div id="gradient3"></div>
+  <div id="gradient4"></div>
+  <div id="gradient5"></div>
+  <div id="gradient6"></div>
+  <div id="gradient7"></div>
+  <div id="gradient8"></div>
+  <div id="gradient9"></div>
+  <div id="gradient10"></div>
+  <div id="gradient15"></div>
+  <img class="withBorderAndPadding scaledUp" src="next.png">
+
+</body>
+
+</html>

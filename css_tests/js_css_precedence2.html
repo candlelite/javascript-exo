@@ -1,0 +1,60 @@
+<html>
+
+<body>
+
+  <style>
+    body {
+      font-size: 50px;
+    }
+
+    div {
+      font-size: 12px;
+    }
+
+    [myattr] {
+      font-size: 14px;
+    }
+
+    .aText {
+      font-size: 16px;
+    }
+
+    #myId {
+      font-size: 18px;
+    }
+  </style>
+
+  <span>Text 0</span>
+  <div> Text 1 </div>
+  <div myattr> Text 2 </div>
+  <div myattr class="aText"> Text 3 </div>
+  <div myattr class="aText" id="myId"> Text 4 </div>
+
+  <!--
+
+  CSS Selector 	        Description
+
+Inherited styles 	      Lowest specificity of all selectors - since an inherited style targets the element's parent, and not the HTML element itself.
+
+*                       Lowest specificity of all directly targeted selectors
+
+element 	              Higher specificity than universal selector and inherited styles.
+
+attribute 	            Higher specificity than element selector
+
+class 	                Higher specificity than attribute, element and universal selectors.
+
+ID 	                    Higher specificity than class selector.
+
+Combined selectors 	    Gets the specificity of the selectors combined.
+
+CSS properties set      
+directlyon element,     Stronger specificity than ID selector.
+inside style 
+attribute. 	            
+
+-->
+
+</body>
+
+</html>

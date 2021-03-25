@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    p.twoColumns {
+      column-count: 2;
+      -moz-column-count: 2;
+      -webkit-column-count: 2;
+    }
+
+    p.columnWidth {
+      column-width: 150px;
+      -moz-column-width: 150px;
+      -webkit-column-width: 150px;
+    }
+
+    p.columnGap {
+      column-count: 2;
+      column-gap: 3em;
+      -moz-column-gap: 3em;
+      -webkit-column-gap: 3em;
+    }
+    p.columnRule {
+    column-count: 2;
+    column-rule  : 1px solid #cccccc;
+    -moz-column-rule  : 1px solid #cccccc;
+    -webkit-column-rule  : 1px solid #cccccc;
+}
+  </style>
+
+  <div style="border: 1px dotted #cccccc;
+column-count: 2; -moz-column-count: 2; -webkit-column-count: 2;">
+    <p>
+      This is the first paragraph. This is the first paragraph.
+      This is the first paragraph. This is the first paragraph.
+      This is the first paragraph. This is the first paragraph.
+      This is the first paragraph. This is the first paragraph.
+    </p>
+    <p>
+      This is the second paragraph. This is much shorter than
+      the first paragraph.
+    </p>
+  </div>
+
+  <div style="column-count: 4; -moz-column-count: 4; -webkit-column-count: 4;">
+    <h2 style="column-span:all; -moz-column-span: all; -webkit-column-span: all;">
+      This is a long headline which spans across multiple columns
+    </h2>
+
+    <p>
+        This is a long, long, text.
+        This is a long, long, text.
+        This is a long, long, text.
+        This is a long, long, text.
+        This is a long, long, text.
+    </p>
+</div>
+
+<!--
+  Voir la doc complète : très intéressant pour présentation comme 
+  un journal.
+-->
+</body>
+
+</html>
