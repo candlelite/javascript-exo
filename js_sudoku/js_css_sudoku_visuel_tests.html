@@ -8,7 +8,7 @@
   <title>Document</title>
 </head>
 
-<body>
+<body id="body">
   <style>
     table.withSpace {
       border-spacing: 10px;
@@ -29,7 +29,8 @@
     }
 
     td {
-      font-size: 650%;
+      font-size: 200%;
+      cursor: hand;
     }
 
     td:empty {
@@ -62,39 +63,45 @@
     }
   </style>
 
-  <table class="withSpace">
+  <!--
+  <table class="withSpace" onMouseOver="highlightCell(this, 'red');autreFonction(this, 'red')">
     <tr>
       <td onMouseOver="highlightBG(this, 'red');highlightNext(this, 'red')"
         onMouseOut="highlightBG(this, 'white');highlightNext(this, 'black')">
       <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
       <td>5</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </table>
-  
+  -->
+
   <a href="/next-page.html" class="greenButtonRound">Text link</a>
 
 
   <script>
-    var table = document.querySelector("table");
+    const LONGUEUR = 9;
+    var table = document.createElement('table');
+    table.setAttribute("id", "table1");
+    //table.attributes["id"].nodeValue = "table1";
+    table.setAttribute("class", "withSpace");
+    //table.attributes["class"].nodeValue = "withSpace";
+    //document.getElementById("body").appendChild(table);
+
+    for (var y = 0; y < LONGUEUR; y++) {
+      var tr = document.createElement('tr');
+      table.appendChild(tr);
+      for (var x = 0; x < LONGUEUR; x++) {
+        var td = document.createElement('td');
+        td.setAttribute("id", `${y},${x}`);
+        table.appendChild(td);
+      }
+    }
+    //body.append(table);
+    //document.getElementById("body").appendChild(table);
+    body.appendChild(table);
+
+
+
+
+
+    //var table = document.getElementById("table1");
     table.style.width = window.innerWidth + "px";
     table.style.height = table.style.width;
 
@@ -108,8 +115,18 @@
     });
 
     [...table.querySelectorAll('td')][10].innerText = "";
-    [...table.querySelectorAll('td')][11].addEventListener("click", () => {
-      console.log("clicked");
+
+    [...table.querySelectorAll('td')][11].addEventListener("click", (e) => {
+      console.log("TD 11 clicked");
+      console.log(e);
+    });
+
+    table.addEventListener("click", (e) => {
+      console.log("TABLE clicked");
+      console.log(e.target.innerText);
+      console.log(e.target.id);
+      console.log(e);
+      e.target.style.opacity == 1 ? e.target.style.opacity = 0.1 : e.target.style.opacity = 1;
     });
 
 
@@ -128,6 +145,23 @@
 
     function highlightBG(element, color) {
       element.style.backgroundColor = color;
+    }
+
+    function autreFonction(element, color) {
+      // var next = element;
+      // do { // find next td node
+      //   next = next.nextSibling;
+      // }
+      // while (next && !('nodeName' in next && next.nodeName === 'TD'));
+      // if (next) {
+      //   next.style.color = color;
+      // }
+    }
+
+    function highlightCell(element, color) {
+      // element.style.backgroundColor = color;
+      //console.log("table onMouseOver");
+      //console.log(element);
     }
 
 

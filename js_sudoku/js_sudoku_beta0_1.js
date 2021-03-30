@@ -43,6 +43,7 @@ console.log("\n-----\nInnitialisation des couleurs:");
 console.log(couleurs);
 
 // positionnement de couleurs de départ fixes
+couleurs.set("0,0", 1);
 couleurs.set("6,6", 8);
 couleurs.set("6,7", 3);
 couleurs.set("6,8", 7);
@@ -66,7 +67,6 @@ const pile = [];
 /*
 On prend le sommet(case) vide, qui a le moins de cases reliées qui 
 sont déjà remplies,
-
 */
 var c = 0;
 var rempli = false;
@@ -77,6 +77,7 @@ while ([...couleurs].filter(e => e[1] == -1).length > 0) {
     [...graphe.get(b[0])].filter(v => couleurs.get(v) == -1).length
   );
   trou = trous[0][0];
+  console.log(trou);
   c = 0;
   rempli = false;
   while (rempli == false) {
