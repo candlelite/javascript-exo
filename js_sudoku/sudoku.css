@@ -2,69 +2,59 @@
   box-sizing: border-box;
 }
 
-@media screen and (orientation: landscape) {}
+  p, h2 {
+    margin: 5px auto;
+    text-align: center;
+    font-family: Arial;
+  }
+  table {
+    border: solid 5px silver;
+    margin: 10px auto;
+    border-collapse: collapse;
+    vertical-align: middle;
+    text-align: center;
+  }
+  tr td {
+    border: 1px solid #000;
+    font-family: Arial;
+    font-size: 150%;
+    height: 8vmin;
+    width: 8vmin;
+  }
+  .grille tr:nth-child(3n) {
+    border-bottom: 3px solid #000;
+  }
+  .grille td:nth-child(3n) {
+    border-right-width: 3px;
+    border-right-style: solid;
+    border-right-color: #000;
+  }
+  table.choix {
+    border: none;
+    border-collapse: separate;
+  }
+  .grille td:nth-child(3n) {
+    border-right-width: 3px;
+    border-right-style: solid;
+    border-right-color: #000;
+  }
+  td:empty {
+    background-color: white;
+  }
+  .buttonRound {
+    border: 2px solid #88b6e0;
+    border-radius: 5px;
+    background-color: #aad7e2;
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 20px 10px 20px;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+  }
+  .buttonRound:hover {
+    border: 2px solid #3266f5;
+    background-color: #daeef0;
+  }
 
-p, h2{
-  margin: 5px auto;
-  text-align: center;
-  font-family: Arial;
-}
-
-table {
-  border: solid 5px silver;
-  margin: 10px auto;
-  border-collapse: collapse;
-  vertical-align: middle;
-  text-align: center;
-}
-
-tr td {
-  border: 1px solid #000;
-  font-family: Arial;
-  font-size: 150%;
-  height: 7vmin;
-  width: 7vmin;
-}
-
-.grille tr:nth-child(3n) {
-  border-bottom: 3px solid #000;
-}
-
-.grille td:nth-child(3n) {
-  border-right-width: 3px;
-  border-right-style: solid;
-  border-right-color: #000;
-}
-
-table.choix {
-  border: none;
-  border-collapse: separate;
-}
-
-.grille td:nth-child(3n) {
-  border-right-width: 3px;
-  border-right-style: solid;
-  border-right-color: #000;
-}
-
-td:empty {
-  background-color: white;
-}
-
-.buttonRound {
-  border: 2px solid #88b6e0;
-  border-radius: 5px;
-  background-color: #aad7e2;
-  color: #000000;
-  font-weight: bold;
-  text-decoration: none;
-  padding: 10px 20px 10px 20px;
-  display: block;
-  margin: 10px auto;
-  text-align: center;
-}
-
-.buttonRound:hover {
-  border: 2px solid #3266f5;
-  background-color: #daeef0;
-}
