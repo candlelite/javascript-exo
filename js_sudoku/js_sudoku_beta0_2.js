@@ -8,13 +8,13 @@ for (var y = 0; y < LONGUEUR; y++) {
     sommets.add(`${y},${x}`);
   }
 }
-console.log("\n-----\nLes sommets");
-console.log(sommets);
+//console.log("\n-----\nLes sommets");
+//console.log(sommets);
 
 // Initialisation du graphe
 graphe = new Map([...sommets.keys()].map(v => [v, new Set()]));
-console.log("\n-----\nLe graphe vide:");
-console.log(graphe);
+//console.log("\n-----\nLe graphe vide:");
+//console.log(graphe);
 
 // Remplissage du graphe
 for (var y = 0; y < LONGUEUR; y++) {
@@ -37,13 +37,13 @@ for (var y = 0; y < LONGUEUR; y++) {
     }
   }
 }
-console.log("\n-----\nLe graphe rempli:");
-console.log(graphe);
+//console.log("\n-----\nLe graphe rempli:");
+//console.log(graphe);
 
 
 couleurs = new Map([...graphe.keys()].map(s => [s, -1]));
-console.log("\n-----\nInnitialisation des couleurs:");
-console.log(couleurs);
+//console.log("\n-----\nInnitialisation des couleurs:");
+//console.log(couleurs);
 
 initCouleurs = () => {
   couleurs = new Map([...graphe.keys()].map(s => {
@@ -54,11 +54,11 @@ initCouleurs = () => {
 
 
 const couleur = [];
-for (i = 0; i < LONGUEUR; i++) {
+for (i = 1; i <= LONGUEUR; i++) {
   couleur[i] = i;
 }
-console.log("couleur");
-console.log(couleur);
+//console.log("couleur");
+//console.log(couleur);
 
 // Initialisation du tableau visuel
 // (pourrait être fait en même temps que le remplissage (initialisation) du graphe)
@@ -89,7 +89,7 @@ td.setAttribute("id", `${-1}`);
 td.setAttribute("onMouseOver", "highlightBG(this, 'yellow')");
 td.setAttribute("onMouseOut", "restoreBG(this)");
 tr.appendChild(td);
-for (i = 0; i < LONGUEUR; i++) {
+for (i = 1; i <= LONGUEUR; i++) {
   var td = document.createElement('td');
   td.setAttribute("id", `${i}`);
   td.setAttribute("onMouseOver", "highlightBG(this, 'yellow')");
@@ -152,12 +152,15 @@ reset.addEventListener("click", (e) => {
 highlightLinked = (id) => {
   [...sommets].forEach((e) => {
     //console.log(e);
-    [...graphe.get(id)].includes(e)
+    id != "clean" ? gr = [...graphe.get(id)] : gr = [];
+    gr.includes(e)
       ? document.getElementById(e).style.backgroundColor = "#dbd3d3"
       : document.getElementById(e).style.backgroundColor = "white";
   });
-  document.getElementById(id).style.backgroundColor = "#f0ebc4";
-  tmpBG = document.getElementById(id).style.backgroundColor;
+  if (id != "clean") {
+    document.getElementById(id).style.backgroundColor = "#f0ebc4";
+    tmpBG = document.getElementById(id).style.backgroundColor;
+  }
 };
 
 function highlightBG(element, color) {
@@ -174,7 +177,7 @@ setSommet = (sId, couleur, fix = false) => {
     couleurs.set(sId, couleur);
     td = document.getElementById(sId)
     couleur == -1 ? td.innerText = "" : td.innerText = couleur;
-    fix === true ? td.style.color = "black" : td.style.color = "blue";
+    fix === true ? td.style.color = "black" : td.style.color = "#74c1c2";
     td.style.backgroundColor = "white";
   }
 };
@@ -187,6 +190,7 @@ On prend le sommet(case) vide, qui a le moins de cases reliées qui
 sont déjà remplies,
 */
 resoudre = () => {
+  highlightLinked("clean");
   var c = 0;
   var rempli = false;
   while ([...couleurs].filter(e => e[1] == -1).length > 0) {
@@ -197,10 +201,10 @@ resoudre = () => {
     );
     trou = trous[0][0];
     //console.log(trou);
-    c = 0;
+    c = 1;
     rempli = false;
     while (rempli == false) {
-      if (c < LONGUEUR) {
+      if (c <= LONGUEUR) {
         if ([...couleurs].filter(e => e[1] == couleur[c]).every(e => !graphe.get(e[0]).has(trou))) {
           //console.log("OK");
           setSommet(trou, c);
@@ -209,7 +213,7 @@ resoudre = () => {
         };
       } else {
         p = pile.pop();
-        if(p===undefined) {
+        if (p === undefined) {
           return false;
           break;
         }

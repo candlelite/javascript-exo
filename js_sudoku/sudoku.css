@@ -4,13 +4,15 @@
 
 @media screen and (orientation: landscape) {}
 
+p, h2{
+  margin: 5px auto;
+  text-align: center;
+  font-family: Arial;
+}
+
 table {
-  /*
-  width: 70vmin;
-  height: 70vmin;
-  */
   border: solid 5px silver;
-  margin: 30px auto;
+  margin: 10px auto;
   border-collapse: collapse;
   vertical-align: middle;
   text-align: center;
@@ -49,24 +51,20 @@ td:empty {
   background-color: white;
 }
 
-li:empty {
-  background-color: #f0ebc4;
-}
-
 .buttonRound {
-  border: 2px solid #006600;
+  border: 2px solid #88b6e0;
   border-radius: 5px;
-  background-color: #009900;
-  color: #ffffff;
+  background-color: #aad7e2;
+  color: #000000;
   font-weight: bold;
   text-decoration: none;
-  margin: 20px;
   padding: 10px 20px 10px 20px;
   display: block;
-  float: right;
+  margin: 10px auto;
+  text-align: center;
 }
 
 .buttonRound:hover {
-  border: 2px solid #009900;
-  background-color: #00cc00;
+  border: 2px solid #3266f5;
+  background-color: #daeef0;
 }
