@@ -45,7 +45,7 @@ couleurs = new Map([...graphe.keys()].map(s => [s, -1]));
 console.log("\n-----\nInnitialisation des couleurs:");
 console.log(couleurs);
 
-initCouleurs = () =>{
+initCouleurs = () => {
   couleurs = new Map([...graphe.keys()].map(s => {
     setSommet(s, -1, false);
     return [s, -1]
@@ -105,23 +105,24 @@ body.appendChild(tableC);
 
 
 table.addEventListener("click", (e) => {
-  console.log("TABLE clicked");
-  console.log(e.target.innerText);
-  console.log(e.target.id);
-  console.log(e);
+  // console.log("TABLE clicked");
+  // console.log(e.target.innerText);
+  // console.log(e.target.id);
+  // console.log(e);
+  highlightLinked(e.target.id);
   tmpSommet = e.target.id;
   //console.log(tmpSommet);
   //e.target.style.opacity == 0.4 ? e.target.style.opacity = 1 : e.target.style.opacity = 0.4;
-  e.target.style.opacity = 0.3;
+  //e.target.style.opacity = 0.3;
 });
 
 tableC.addEventListener("click", (e) => {
-  console.log("TABLE clicked");
-  console.log(e.target.innerText);
-  console.log(e.target.id);
-  console.log(e);
+  // console.log("TABLE clicked");
+  // console.log(e.target.innerText);
+  // console.log(e.target.id);
+  // console.log(e);
   tmpCouleur = e.target.id;
-  console.log(tmpCouleur);
+  //console.log(tmpCouleur);
   setSommet(tmpSommet, tmpCouleur, true);
 });
 
@@ -134,7 +135,8 @@ resoudre.setAttribute("name", "resoudre");
 body.appendChild(resoudre);
 resoudre.innerText = "Résoudre";
 resoudre.addEventListener("click", (e) => {
-  resoudre();
+  valide = resoudre();
+  console.log(valide);
 });
 
 var reset = document.createElement('button');
@@ -147,23 +149,34 @@ reset.addEventListener("click", (e) => {
   initCouleurs();
 });
 
-
-
+highlightLinked = (id) => {
+  [...sommets].forEach((e) => {
+    //console.log(e);
+    [...graphe.get(id)].includes(e)
+      ? document.getElementById(e).style.backgroundColor = "#dbd3d3"
+      : document.getElementById(e).style.backgroundColor = "white";
+  });
+  document.getElementById(id).style.backgroundColor = "#f0ebc4";
+  tmpBG = document.getElementById(id).style.backgroundColor;
+};
 
 function highlightBG(element, color) {
+  tmpBG = element.style.backgroundColor;
   element.style.backgroundColor = color;
 };
 function restoreBG(element) {
- element.innerText == "" ? element.style.backgroundColor = "#edebeb"
- : element.style.backgroundColor = "white";
+  element.style.backgroundColor = tmpBG;
 };
 
 
 setSommet = (sId, couleur, fix = false) => {
-  couleurs.set(sId, couleur);
-  td = document.getElementById(sId)
-  couleur == -1 ? td.innerText = "" :td.innerText = couleur;
-  fix === true ? td.style.color = "red" : td.style.color = "black";
+  if (couleur == -1 || [...couleurs].filter(e => e[1] == couleur).every(e => !graphe.get(e[0]).has(sId))) {
+    couleurs.set(sId, couleur);
+    td = document.getElementById(sId)
+    couleur == -1 ? td.innerText = "" : td.innerText = couleur;
+    fix === true ? td.style.color = "black" : td.style.color = "blue";
+    td.style.backgroundColor = "white";
+  }
 };
 
 // Algorithme de résolution
@@ -196,6 +209,10 @@ resoudre = () => {
         };
       } else {
         p = pile.pop();
+        if(p===undefined) {
+          return false;
+          break;
+        }
         trou = p[0];
         c = p[1];
         setSommet(trou, -1);
@@ -203,4 +220,5 @@ resoudre = () => {
       c++
     };
   };
+  return true;
 }

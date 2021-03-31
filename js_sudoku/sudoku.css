@@ -46,7 +46,11 @@ table.choix {
 }
 
 td:empty {
-  background-color: #edebeb;
+  background-color: white;
+}
+
+li:empty {
+  background-color: #f0ebc4;
 }
 
 .buttonRound {
