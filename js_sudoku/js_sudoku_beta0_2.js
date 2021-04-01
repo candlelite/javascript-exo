@@ -1,5 +1,7 @@
 const PUISSANCE = 3; // pas plus de 5, sinon ça plante
 const LONGUEUR = PUISSANCE * PUISSANCE;
+var trou = "";
+var pile = [];
 
 // Initialisation des sommets
 sommets = new Set();
@@ -136,7 +138,17 @@ body.appendChild(resoudre);
 resoudre.innerText = "Résoudre";
 resoudre.addEventListener("click", (e) => {
   valide = resoudre();
-  console.log(valide);
+  pile.forEach((e) => {
+    td = document.getElementById(e[0]);
+    td.innerText = e[1];
+    td.style.color = "#74c1c2";
+  });
+  if (valide == false) {
+    td = document.getElementById(trou);
+    td.style.backgroundColor = "red";
+  }
+  //console.log(valide);
+  //console.log(trou);
 });
 
 var reset = document.createElement('button');
@@ -184,15 +196,18 @@ setSommet = (sId, couleur, fix = false) => {
 
 // Algorithme de résolution
 // pile qui va empiler et dépiler les cases remplies puis effacées
-const pile = [];
+
 /*
 On prend le sommet(case) vide, qui a le moins de cases reliées qui 
 sont déjà remplies,
 */
+
 resoudre = () => {
   highlightLinked("clean");
   var c = 0;
   var rempli = false;
+  trou = "";
+  pile = [];
   while ([...couleurs].filter(e => e[1] == -1).length > 0) {
     const trous = [...couleurs].filter(e => e[1] == -1).sort((a, b) =>
       [...graphe.get(a[0])].filter(v => couleurs.get(v) == -1).length
@@ -206,8 +221,7 @@ resoudre = () => {
     while (rempli == false) {
       if (c <= LONGUEUR) {
         if ([...couleurs].filter(e => e[1] == couleur[c]).every(e => !graphe.get(e[0]).has(trou))) {
-          //console.log("OK");
-          setSommet(trou, c);
+          couleurs.set(trou, c);
           pile.push([trou, c]);
           rempli = true;
         };
@@ -219,7 +233,7 @@ resoudre = () => {
         }
         trou = p[0];
         c = p[1];
-        setSommet(trou, -1);
+        couleurs.set(trou, -1);
       };
       c++
     };
