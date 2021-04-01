@@ -78,6 +78,8 @@ for (var y = 0; y < LONGUEUR; y++) {
     tr.appendChild(td);
   }
 }
+//body.append(table);
+//document.getElementById("body").appendChild(table);
 body.appendChild(table);
 
 //tableau du choix des couleurs
