@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      textarea {
+      background-color: beige;
+      margin : 5px;
+      }
+      .super {
+      background-color: greenyellow;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Cryptographie de César</h1>
+    <textarea id="clair" cols="20" rows="10" >Votre texte en clair ici puis cliquez sur 'coder'.</textarea> <textarea id="nettoy" cols="40" rows="10"></textarea> <br>
+    <input id="decal" value=3 size=2> <button id="coder">Coder</button> <button id="decoder">decoder</button> <br>
+    <textarea id="code" cols="50" rows="10"></textarea> <textarea id="stats" cols="10" rows="10"></textarea> <br>
+<p>Texte n°1 à décoder : UWLLWUZSAFWQGMLMTWWKLLWDDWEWFLUGGDIMWBWUDAIMWKMJBSAEW</p>
+<p>Texte n°2 à décoder : MJWBDWNYAXLQJRWNERMNXWXDBENAAXWBLXVVNWCLJBBNAUNLXMNMNERPNWNAN</p>
+    <div id="sortie"></div>
+    
+    <script>
+      var $ =(id) => document.getElementById(id)
+      
+      $('clair').addEventListener('keyup', function () { nettoy.value = nettoyer(this.value) }, false)    
+      $('coder').addEventListener('click', function () { code.value = coder(nettoy.value, decal.value) } , false)      
+      $('decoder').addEventListener('click', function () { decoder(code.value, stats, sortie) } , false) 
+      
+      document.addEventListener('DOMContentLoaded', function () { nettoy.value = nettoyer(clair.value) }, false)
+
+      var nettoyer = (txt) => {
+        var accents="àâëéèêïîôüûç"
+        var voyelles="aaeeeeiiouuc"
+        return [...txt.toLowerCase()].map(c=>accents.includes(c) ? voyelles[accents.indexOf(c)] : c)
+        .join('').replace(/[^a-z]/g, '').toUpperCase()
+      }
+      var cesar = (c, dec) => {
+        var alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        return alpha[( + dec + alpha.indexOf(c) + 26) % 26]
+      }
+      
+      var gras = (txt) => '<span class=\'super\'>' + txt + '</b>'
+      
+      var coder = (txt, dec) => [...txt].map(c => cesar(c, dec)).join('')
+      
+      var decoder = (txt, stats, sortie) => {
+        var code = nettoyer(txt) 
+        var analyse = [...code].reduce((a, c) => a.set(c, (a.get(c) || 0) + 1), new Map())
+        analyse = [...analyse.entries()].sort((a, b) => b[1] - a[1])
+        stats.value = analyse.map(([k, v]) => k + ':' + v).join('\n')
+        sortie.innerHTML = ''        
+        analyse.forEach((v, k, arr) => {
+          console.log(69 - v[0].charCodeAt(0))
+          var txt = [...code].map(c => cesar(c, 69 - v[0].charCodeAt(0))).join('')
+          sortie.innerHTML += (v[1] == arr[0][1] ? gras(txt)  : txt) + '<br>'
+        })
+      } 
+    </script>
+  </body>
+</html>
