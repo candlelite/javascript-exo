@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // Exemple 1
+
+    var zero = 0;
+    // s pour successeur
+    var s = x => [x];
+    s(2);
+    s(s("F"));
+    //"JSON.stringify(...)" remplace "".toSource()""
+    console.log(JSON.stringify(s(s("F"))));
+    console.log(JSON.stringify(s(s(s(s("F")))))); //-> [[[["F"]]]]
+
+    // prédécesseur p du successeur précédent
+    // exemple, p([["F"]]) = ['F']
+    p = x => x[0];
+    console.log(JSON.stringify(p(p(p([[["F"]]]))))); //-> 'F'
+
+
+    // Exemple 2
+
+    var zero = null;
+    // le successeur de x, c'est une fonction,
+    // une fonction qui avec n'importe quelles variables, renvoie le x
+    var s = x => () => x;
+    console.log("successeur de zero");
+    console.log(s(zero)); //-> le successeur de zero est donc une fontion
+    console.log("successeur du successeur de zero");
+    console.log(s(s(zero))); //-> la, on ne voit pas la différence entre les 2
+    console.log("évaluation du successeur de zero");
+    console.log(s(zero)()); //-> mais si on évalue, on voit la différence, ici "null"
+    console.log("évaluation du successeur du successeur de zero");
+    console.log(s(s(zero))()); //-> et ici "() => x"
+    console.log("évaluation deux fois du successeur du successeur du successeur de zero");
+    console.log(s(s(zero))()()); //-> évalué deux fois, ici "null"
+
+    //comme l'exemple 2, mais écrit à l'ancienne
+    var zeri = null;
+    function suc(xx) {
+      function f() {
+        return xx;
+      }
+      return f;
+    }
+    console.log("successeur de zeri");
+    console.log(s(zeri)); //-> le successeur de zero est donc une fontion
+    console.log("successeur du successeur de zeri");
+    console.log(s(s(zeri))); //-> la, on ne voit pas la différence entre les 2
+    console.log("évaluation du successeur de zeri");
+    console.log(s(zeri)()); //-> mais si on évalue, on voit la différence, ici "null"
+    console.log("évaluation du successeur du successeur de zeri");
+    console.log(s(s(zeri))()); //-> et ici "() => x"
+    console.log("évaluation deux fois du successeur du successeur du successeur de zeri");
+    console.log(s(s(zeri))()()); //-> évalué deux fois, ici "null"
+    // évaluation , ça veut dire, on exécute.
+    // s ou suc, c'est la fonction, s(), c'est l'appel de la fonction 
+
+    // le prédécesseur de x, c'est l'évaluation de X
+    var p = x => x();
+
+
+    // Exemple 3
+
+    var y = { v: "a" };
+    console.log(y["v"]); //-> a
+    console.log(y.v); //-> a
+
+    //s pour successeur
+    var s = x => ({ v: x }); // ici il ne faut pas oublier les parenthèses !
+    // à un élément x, je renvoie l'objet qui à comme clé v, et comme valeur x
+    console.log(s(s(s("a"))));
+    console.log(JSON.stringify((s(s("a")))));
+
+
+    //p pour prédécesseur
+    var p = x => x.v;
+    console.log(p(p(p(s(s(s("a"))))))); //-> a
+    // le prédécesseur du prédécesseur du prédécesseur du successeur du successeur du successeur de a = a
+
+
+    // Générateur
+    // x va recevoir une valeur et s va recevoir une fonction
+    // avec les générateur on ne peut aller que dans un sens
+    // donc, impossible d'avoir le prédécesseur
+    function* chaine(x, s) {
+      while (true) yield x = s(x);
+    };
+
+    N = chaine(0, n => n + 1);
+    console.log(N.next().value);
+    console.log(N.next().value);
+    console.log(N.next().value);
+
+    T = chaine(0, n => [n]);
+    console.log(JSON.stringify(T + ''));
+    console.log(JSON.stringify(T.next().value));
+    console.log(JSON.stringify(T.next().value));
+    console.log(JSON.stringify(T.next().value));
+
+
+    // Alors on va définir nous même un objet
+
+    function chaine2(a, s) {
+      var x = a;
+      succ = (v = x) => x = s(v);
+      return {succ};
+    };
+
+    m = new chaine2(1, n=>n+1);
+    console.log(m.succ());
+    console.log(m.succ());
+    console.log(m.succ(9));
+    console.log(m.succ());
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>
