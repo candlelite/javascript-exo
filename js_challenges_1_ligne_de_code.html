@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*
+    == Challenge 1 : Liste croissante ? ==
+      Écrire une fonction qui renvoie "true" lorsqu'une liste est 
+      croissante et "false" sinon.
+
+      croissant([1, 2, 4, 7, 19]) donnera "true"
+      croissant([1, 6, 10, 18, 2, 4, 20]) donnera "false"
+    */
+
+    croissant = (l) => res = l.reduce((a, v, i, arr) => (i == 0 || v > arr[i - 1]) ? a && true : a && false, true)
+    // "== 0 ||" pour que ça fonctionne avec les chiffres négatifs
+    // il aurait été mieux d'utiliser "some" ou "every" afain de ne pas parcourir tout le tableau
+    console.log(croissant([-6, -2, 4, 7, 19]))
+    console.log(croissant([1, 6, 10, 18, 2, 4, 20]))
+
+
+    /*
+    == Challenge 2 : Éliminez les doublons ==
+      Conserver les mots (séparés par une seule espace) sans répétition.
+
+      uniques('un deux un trois deux un') donnera la chaine "un deux trois"
+    */
+
+    uniques = (c) => [...new Set(c.split(" "))].join(" ")
+
+    console.log(uniques('un deux un trois deux un'))
+
+    /*
+    == Challenge 3 : Mot le plus long ==
+      Trouvez la longueur du mot le plus long d'une phrase 
+      (une phrase étant composée de mots séparés par une seule espace).
+
+      long("Elle et moi dans cet avril charmant") donnera 8 
+      (correspondant au mot "charmant")
+    */
+
+    long = (p) => p.split(" ").sort((a, b) => a.length - b.length).pop().length
+    // il aurait été plus rusé d'utilier Math.max
+    console.log(long("Elle et moi dans cet avril charmant"))
+
+    /*
+  == Challenge 4 : Isogrammes ==
+    Un isogramme est un mot où les lettres (en majuscules ou minuscules) 
+    ne se répètent pas.
+    isogramme("BonjOur") donnera "false" car la lettre "o" se répète
+    isogramme("Salut") donnera "true"  
+    
+
+    isogramme = (m) => {
+      m = m.toUpperCase().split("").sort()
+      res = m.reduce((a, v, i, arr)=>{
+        a = (v != arr[i-1]) ? a && true : a && false
+        return a
+      },"*")
+      return res
+    }
+    */
+
+    //isogramme = (m) => m.toUpperCase().split("").sort().reduce((a, v, i, arr) => (v != arr[i - 1]) ? a && true : a && false, "*")
+
+    var isogramme = s => !s.match(/(.).*\1/gi)
+    //EXPLICATION DE :   /(.).*\1/gi 
+    // (.) -> Je cherche un caractère (()=groupe)
+    // .*  -> ensuite, il y a je sais pas quoi (un caractère 0 à x fois)
+    // \1  -> puis ce caractère se répète (groupe 1)
+    // gi  -> continuer jusqu'à la fin de la chaine, sans tenir compte de la casse
+
+
+
+
+    // ETUDIER MIEUX LES EXPRESSIONS REGULIÈRES
+
+
+    console.log(isogramme("Bonjour"))
+    console.log(isogramme("Salut"))
+
+  </script>
+</body>
+
+</html>
